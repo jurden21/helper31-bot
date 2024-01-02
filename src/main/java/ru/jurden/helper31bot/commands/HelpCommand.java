@@ -1,0 +1,24 @@
+package ru.jurden.helper31bot.commands;
+
+import lombok.extern.slf4j.Slf4j;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
+@Slf4j
+public class HelpCommand extends Command {
+
+    public HelpCommand(Update update) {
+        super("help", "Print help", update);
+    }
+
+    @Override
+    public SendMessage execute() {
+        Chat chat = getUpdate().getMessage().getChat();
+        SendMessage message = new SendMessage();
+        message.setChatId(chat.getId());
+        message.setText("Hi!1123");
+        return message;
+    }
+
+}

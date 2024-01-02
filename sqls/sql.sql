@@ -1,0 +1,1 @@
+select * from bot_helper_request;
