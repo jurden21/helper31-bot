@@ -1,4 +1,4 @@
-package ru.jurden.helper31bot.commands;
+package ru.jurden.helper31bot.entity;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -32,7 +32,7 @@ public class PasswordSettings {
     private boolean useBrackets = false;
     private String chars = "";
 
-    public List<Character> getChars() {
+    public List<Character> getCharList() {
         List<Character> charList = new ArrayList<>();
         if (!chars.isEmpty()) {
             return chars.chars().mapToObj(c -> (char) c).collect(Collectors.toList());

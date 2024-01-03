@@ -1,11 +1,12 @@
 package ru.jurden.helper31bot.repository.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import ru.jurden.helper31bot.commands.PasswordSettings;
+import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.repository.BotRepository;
 import ru.jurden.helper31bot.repository.query.BotQuery;
 
@@ -32,7 +33,7 @@ public class BotRepositoryImpl implements BotRepository {
     }
 
     @Override
-    public PasswordSettings loadPasswordSettings(long chatId) {
+    public PasswordSettings getPasswordSettings(long chatId) {
         PasswordSettings passwordSettings = new PasswordSettings();
         jdbcTemplate.query(
                 BotQuery.GET_PASSWORD_SETTINGS.query(),
@@ -50,5 +51,21 @@ public class BotRepositoryImpl implements BotRepository {
                             .setChars(rs.getString("chars"));
                 });
         return passwordSettings;
+    }
+
+    @Override
+    public void savePasswordSettings(PasswordSettings passwordSettings) {
+        jdbcTemplate.update(
+                BotQuery.SAVE_PASSWORD_SETTINGS.query(),
+                new MapSqlParameterSource()
+                        .addValue("chat_id", passwordSettings.getChatId(), Types.NUMERIC)
+                        .addValue("length", passwordSettings.getLength(), Types.NUMERIC)
+                        .addValue("use_upper_case", BooleanUtils.toInteger(passwordSettings.isUseUpperCase()), Types.NUMERIC)
+                        .addValue("use_lower_case", BooleanUtils.toInteger(passwordSettings.isUseLowerCase()), Types.NUMERIC)
+                        .addValue("use_digits", BooleanUtils.toInteger(passwordSettings.isUseDigits()), Types.NUMERIC)
+                        .addValue("use_special", BooleanUtils.toInteger(passwordSettings.isUseSpecial()), Types.NUMERIC)
+                        .addValue("use_brackets", BooleanUtils.toInteger(passwordSettings.isUseBrackets()), Types.NUMERIC)
+                        .addValue("chars", passwordSettings.getChars(), Types.VARCHAR)
+        );
     }
 }
