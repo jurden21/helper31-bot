@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.jurden.helper31bot.commands.*;
+import ru.jurden.helper31bot.commands.CommandFactory;
 import ru.jurden.helper31bot.config.BotConfig;
 import ru.jurden.helper31bot.repository.BotRepository;
 import ru.jurden.helper31bot.service.NoticeService;
