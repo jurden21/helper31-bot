@@ -18,24 +18,16 @@ public class PasswordSettings {
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
     public static final List<Character> DIGITS = List.of(
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-    public static final List<Character> MINUS = List.of(
-            '-');
-    public static final List<Character> UNDERLINE = List.of(
-            '_');
-    public static final List<Character> SPACE = List.of(
-            ' ');
     public static final List<Character> SPECIAL = List.of(
-            '!', '@', '#', '$', '%', '&', '*', '+', '=', '|', ',', '.', '/', '?');
+            '!', '"', '#', '$', '%', '&', '\'', '*', '+', ',', '-' ,'.' ,'/' ,':' ,';', '=', '?', '@', '^', '_', '`', '|', '~');
     public static final List<Character> BRACKETS = List.of(
             '(', ')', '{', '}', '[', ']', '<', '>');
 
+    private long chatId;
     private int length = 12;
     private boolean useUpperCase = true;
     private boolean useLowerCase = true;
     private boolean useDigits = true;
-    private boolean useMinus = false;
-    private boolean useUnderline = false;
-    private boolean useSpace = false;
     private boolean useSpecial = false;
     private boolean useBrackets = false;
     private String chars = "";
@@ -53,15 +45,6 @@ public class PasswordSettings {
         }
         if (useDigits) {
             charList.addAll(DIGITS);
-        }
-        if (useMinus) {
-            charList.addAll(MINUS);
-        }
-        if (useUnderline) {
-            charList.addAll(UNDERLINE);
-        }
-        if (useSpace) {
-            charList.addAll(SPACE);
         }
         if (useSpecial) {
             charList.addAll(SPECIAL);

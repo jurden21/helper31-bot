@@ -1,10 +1,16 @@
 package ru.jurden.helper31bot.commands;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
+@AllArgsConstructor
 public class CommandFactory {
+
+    private HelpCommand helpCommand;
+    private PasswordCommand passwordCommand;
+
     public static final String COMMAND_PREFIX = "/";
     public static final String HELP_COMMAND = COMMAND_PREFIX + "help";
     public static final String PASSWORD_COMMAND = COMMAND_PREFIX + "password";
@@ -20,11 +26,11 @@ public class CommandFactory {
             if (PASSWORD_COMMAND.equals(command)) {
 
 
-                return new PasswordCommand(update);
+                return passwordCommand;
             }
         }
 
-        return new HelpCommand(update);
+        return helpCommand;
     }
 
 }

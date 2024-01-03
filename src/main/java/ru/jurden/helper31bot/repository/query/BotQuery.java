@@ -4,7 +4,8 @@ import ru.jurden.helper31bot.util.ResourceUtils;
 
 public enum BotQuery {
 
-    SAVE_REQUEST("/query/save_request.sql")
+    SAVE_REQUEST("/query/save_request.sql"),
+    GET_PASSWORD_SETTINGS("/query/get_password_settings.sql")
     ;
 
     private final String query;

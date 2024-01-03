@@ -16,9 +16,6 @@ create table bot_helper31_password_settings (
     use_upper_case int not null default 1,
     use_lower_case int not null default 1,
     use_digits int not null default 1,
-    use_minus int not null default 0,
-    use_underline int not null default 0,
-    use_space int not null default 0,
     use_special int not null default 0,
     use_brackets int not null default 0,
     chars text

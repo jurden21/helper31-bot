@@ -35,7 +35,7 @@ public final class Bot extends TelegramLongPollingBot {
         try {
             botRepository.saveRequest(update.getMessage());
             execute(commandNotifier.createNotification(update));
-            execute(commandFactory.getCommand(update).execute());
+            execute(commandFactory.getCommand(update).execute(update));
         } catch (TelegramApiException e) {
             log.error("TelegramApiException:", e);
         } catch (Exception e) {
