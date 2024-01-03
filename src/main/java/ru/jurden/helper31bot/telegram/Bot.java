@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.jurden.helper31bot.commands.*;
 import ru.jurden.helper31bot.config.BotConfig;
 import ru.jurden.helper31bot.repository.BotRepository;
+import ru.jurden.helper31bot.service.NoticeService;
 
 @Slf4j
 @Component
@@ -18,7 +19,7 @@ public final class Bot extends TelegramLongPollingBot {
     final BotConfig botConfig;
     final BotRepository botRepository;
     final CommandFactory commandFactory;
-    final CommandNotifier commandNotifier;
+    final NoticeService noticeService;
 
     @Override
     public String getBotUsername() {
@@ -34,7 +35,7 @@ public final class Bot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         try {
             botRepository.saveRequest(update.getMessage());
-            execute(commandNotifier.createNotification(update));
+            execute(noticeService.createNotification(update));
             execute(commandFactory.getCommand(update).execute(update));
         } catch (TelegramApiException e) {
             log.error("TelegramApiException:", e);

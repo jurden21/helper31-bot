@@ -1,4 +1,4 @@
-package ru.jurden.helper31bot.commands;
+package ru.jurden.helper31bot.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import ru.jurden.helper31bot.config.BotConfig;
 
 @Component
 @RequiredArgsConstructor
-public class CommandNotifier {
+public class NoticeService {
 
     final BotConfig botConfig;
 
