@@ -14,6 +14,7 @@ public class CommandFactory {
     private final PasswordStatusCommand passwordStatusCommand;
     private final PasswordUpperCaseCommand passwordUpperCaseCommand;
     private final PasswordLowerCaseCommand passwordLowerCaseCommand;
+    private final PasswordDigitsCommand passwordDigitsCommand;
 
     public static final String COMMAND_PREFIX = "/";
     public static final String HELP_COMMAND = COMMAND_PREFIX + "help";
@@ -21,6 +22,7 @@ public class CommandFactory {
     public static final String PASSWORD_STATUS_COMMAND = COMMAND_PREFIX + "password_status";
     public static final String PASSWORD_UPPERCASE_COMMAND = COMMAND_PREFIX + "password_uppercase";
     public static final String PASSWORD_LOWERCASE_COMMAND = COMMAND_PREFIX + "password_lowercase";
+    public static final String PASSWORD_DIGITS_COMMAND = COMMAND_PREFIX + "password_digits";
 
     public Command getCommand(Update update) {
 
@@ -39,6 +41,9 @@ public class CommandFactory {
             }
             if (PASSWORD_LOWERCASE_COMMAND.equals(command)) {
                 return passwordLowerCaseCommand;
+            }
+            if (PASSWORD_DIGITS_COMMAND.equals(command)) {
+                return passwordDigitsCommand;
             }
         }
 

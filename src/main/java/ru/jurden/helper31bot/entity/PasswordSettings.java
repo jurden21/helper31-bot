@@ -65,4 +65,9 @@ public class PasswordSettings {
         return this;
     }
 
+    public PasswordSettings toggleUseDigits() {
+        useDigits = !useDigits;
+        return this;
+    }
+
 }

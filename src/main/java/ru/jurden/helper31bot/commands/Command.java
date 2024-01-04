@@ -32,7 +32,9 @@ public abstract class Command {
                 "/password_digits - toggle using digits in password generator\n" +
                 "/password_special - toggle using special chars in password generator\n" +
                 "/password_brackets - toggle using brackets in password generator\n" +
-                "/password_chars chars - toggle using brackets in password generator\n";
+                "/password_chars chars - toggle using brackets in password generator\n" +
+                "\n" +
+                "owner: @unknown31bot";
     }
 
 }
