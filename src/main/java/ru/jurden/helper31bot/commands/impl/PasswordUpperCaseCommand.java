@@ -2,8 +2,8 @@ package ru.jurden.helper31bot.commands.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.Command;
@@ -21,13 +21,12 @@ public class PasswordUpperCaseCommand extends Command {
     public SendMessage execute(Update update) {
         long chatId = update.getMessage().getChatId();
         SendMessage message = new SendMessage();
+        message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
 
-        PasswordSettings settings = botRepository.getPasswordSettings(chatId);
-        settings.setChatId(chatId);
-        settings.setUseUpperCase(!settings.isUseUpperCase());
+        PasswordSettings settings = botRepository.getPasswordSettings(chatId).toggleUpperCase();
         botRepository.savePasswordSettings(settings);
-        message.setText(String.format("UpperCase is toggled to %s", BooleanUtils.toString(settings.isUseUpperCase(), "on", "off")));
+        message.setText(getStatus(settings));
 
         return message;
     }

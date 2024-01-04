@@ -55,4 +55,9 @@ public class PasswordSettings {
         return charList;
     }
 
+    public PasswordSettings toggleUpperCase() {
+        useUpperCase = !useUpperCase;
+        return this;
+    }
+
 }

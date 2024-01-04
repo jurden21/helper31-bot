@@ -34,14 +34,14 @@ public class BotRepositoryImpl implements BotRepository {
 
     @Override
     public PasswordSettings getPasswordSettings(long chatId) {
-        PasswordSettings passwordSettings = new PasswordSettings();
+        PasswordSettings passwordSettings = new PasswordSettings()
+                .setChatId(chatId);
         jdbcTemplate.query(
                 BotQuery.GET_PASSWORD_SETTINGS.query(),
                 new MapSqlParameterSource()
                         .addValue("chat_id", chatId, Types.NUMERIC),
                 (rs) -> {
                     passwordSettings
-                            .setChatId(rs.getLong("chat_id"))
                             .setLength(rs.getInt("length"))
                             .setUseUpperCase(rs.getBoolean("use_upper_case"))
                             .setUseLowerCase(rs.getBoolean("use_lower_case"))
