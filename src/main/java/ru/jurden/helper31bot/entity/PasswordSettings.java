@@ -55,8 +55,13 @@ public class PasswordSettings {
         return charList;
     }
 
-    public PasswordSettings toggleUpperCase() {
+    public PasswordSettings toggleUseUpperCase() {
         useUpperCase = !useUpperCase;
+        return this;
+    }
+
+    public PasswordSettings toggleUseLowerCase() {
+        useLowerCase = !useLowerCase;
         return this;
     }
 

@@ -3,10 +3,7 @@ package ru.jurden.helper31bot.commands;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.jurden.helper31bot.commands.impl.HelpCommand;
-import ru.jurden.helper31bot.commands.impl.PasswordCommand;
-import ru.jurden.helper31bot.commands.impl.PasswordStatusCommand;
-import ru.jurden.helper31bot.commands.impl.PasswordUpperCaseCommand;
+import ru.jurden.helper31bot.commands.impl.*;
 
 @Component
 @AllArgsConstructor
@@ -16,12 +13,14 @@ public class CommandFactory {
     private final PasswordCommand passwordCommand;
     private final PasswordStatusCommand passwordStatusCommand;
     private final PasswordUpperCaseCommand passwordUpperCaseCommand;
+    private final PasswordLowerCaseCommand passwordLowerCaseCommand;
 
     public static final String COMMAND_PREFIX = "/";
     public static final String HELP_COMMAND = COMMAND_PREFIX + "help";
     public static final String PASSWORD_COMMAND = COMMAND_PREFIX + "password";
     public static final String PASSWORD_STATUS_COMMAND = COMMAND_PREFIX + "password_status";
     public static final String PASSWORD_UPPERCASE_COMMAND = COMMAND_PREFIX + "password_uppercase";
+    public static final String PASSWORD_LOWERCASE_COMMAND = COMMAND_PREFIX + "password_lowercase";
 
     public Command getCommand(Update update) {
 
@@ -37,6 +36,9 @@ public class CommandFactory {
             }
             if (PASSWORD_UPPERCASE_COMMAND.equals(command)) {
                 return passwordUpperCaseCommand;
+            }
+            if (PASSWORD_LOWERCASE_COMMAND.equals(command)) {
+                return passwordLowerCaseCommand;
             }
         }
 

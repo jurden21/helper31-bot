@@ -13,7 +13,7 @@ import ru.jurden.helper31bot.repository.BotRepository;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PasswordUpperCaseCommand extends Command {
+public class PasswordLowerCaseCommand extends Command {
 
     private BotRepository botRepository;
 
@@ -24,7 +24,7 @@ public class PasswordUpperCaseCommand extends Command {
         message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
 
-        PasswordSettings settings = botRepository.getPasswordSettings(chatId).toggleUseUpperCase();
+        PasswordSettings settings = botRepository.getPasswordSettings(chatId).toggleUseLowerCase();
         botRepository.savePasswordSettings(settings);
         message.setText(getStatus(settings));
 
