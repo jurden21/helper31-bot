@@ -34,15 +34,19 @@ public class PasswordCommand extends Command {
                 .iterate(1, n -> n + 1)
                 .limit(settings.getLength())
                 .map(n -> charList.get(random.nextInt(charList.size())).toString())
-                .collect(Collectors.joining());
+                .collect(Collectors.joining())
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll("\"", "&quot;");
     }
 
     @Override
     public SendMessage execute(Update update) {
         SendMessage message = new SendMessage();
-        message.setParseMode(ParseMode.MARKDOWNV2);
+        message.setParseMode(ParseMode.HTML);
         message.setChatId(update.getMessage().getChatId());
-        message.setText("`" + generatePassword(update.getMessage().getChatId()) + "`");
+        message.setText("<code>" + generatePassword(update.getMessage().getChatId()) + "</code>");
         return message;
     }
 }
