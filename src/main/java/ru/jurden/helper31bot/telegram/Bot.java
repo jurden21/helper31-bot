@@ -5,11 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.jurden.helper31bot.commands.CommandFactory;
 import ru.jurden.helper31bot.config.BotConfig;
 import ru.jurden.helper31bot.repository.BotRepository;
 import ru.jurden.helper31bot.service.NoticeService;
+
+import java.util.Arrays;
 
 @Slf4j
 @Component
@@ -37,10 +38,13 @@ public final class Bot extends TelegramLongPollingBot {
             botRepository.saveRequest(update.getMessage());
             execute(noticeService.createNotification(update));
             execute(commandFactory.getCommand(update).execute(update));
-        } catch (TelegramApiException e) {
-            log.error("TelegramApiException:", e);
         } catch (Exception e) {
-            log.error("Exception:", e);
+            try {
+                execute(noticeService.createNotification("Exception:\n<code>" + e.getMessage() + "</code>"));
+                execute(noticeService.createNotification("<code>" + Arrays.toString(e.getStackTrace()) + "</code>"));
+            } catch (Exception s) {
+                log.error("Exception:", s);
+            }
         }
 
     }

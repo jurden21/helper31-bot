@@ -3,6 +3,7 @@ package ru.jurden.helper31bot.commands.impl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -25,6 +26,9 @@ public class PasswordCommand extends Command {
     public String generatePassword(long chatId) {
         PasswordSettings settings = botRepository.getPasswordSettings(chatId);
         List<Character> charList = settings.getCharList();
+        if (CollectionUtils.isEmpty(charList)) {
+            return "Please turn on any category of chars";
+        }
         Random random = new Random();
         return Stream
                 .iterate(1, n -> n + 1)
