@@ -21,6 +21,7 @@ public class CommandFactory {
     private final PasswordUpperCaseCommand passwordUpperCaseCommand;
     private final PasswordLowerCaseCommand passwordLowerCaseCommand;
     private final PasswordDigitsCommand passwordDigitsCommand;
+    private final PasswordSpecialCommand passwordSpecialCommand;
 
     public static final String COMMAND_PREFIX = "/";
     public static final String UUID_COMMAND = COMMAND_PREFIX + "uuid";
@@ -88,7 +89,7 @@ public class CommandFactory {
             }
             if (PASSWORD_SPECIAL_COMMAND.equals(command)) {
                 resetStates();
-                return null;
+                return passwordSpecialCommand;
             }
 
             if (passwordLengthCommand.isWaiting()) {

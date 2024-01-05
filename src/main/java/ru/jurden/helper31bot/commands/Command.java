@@ -21,7 +21,6 @@ public abstract class Command {
                         String.format("<code>Hyphens:   %s</code>  (/uuid_hyphens)\n", BooleanUtils.toString(settings.isUseHyphens(), "ON", "OFF")) +
                         String.format("<code>UpperCase: %s</code>  (/uuid_uppercase)\n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
                         String.format("<code>Braces:    %s</code>  (/uuid_braces)\n", BooleanUtils.toString(settings.isUseBraces(), "ON", "OFF"));
-
     }
 
     public void resetState() {
