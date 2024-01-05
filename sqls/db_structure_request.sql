@@ -20,3 +20,10 @@ create table bot_helper31_password_settings (
     use_brackets int not null default 0,
     chars text
 );
+drop table if exists bot_helper31_uuid_settings;
+create table bot_helper31_uuid_settings (
+    chat_id bigint not null primary key,
+    use_hyphens int not null default 1,
+    use_upper_case int not null default 0,
+    use_braces int not null default 1
+);

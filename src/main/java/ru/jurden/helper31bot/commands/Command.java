@@ -13,28 +13,37 @@ public abstract class Command {
     protected String getStatus(PasswordSettings settings) {
         return
                 String.format("Length: %d (/password_length n)\n", settings.getLength()) +
-                String.format("UpperCase: %s (/password_uppercase)\n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
-                String.format("LowerCase: %s (/password_lowercase)\n", BooleanUtils.toString(settings.isUseLowerCase(), "ON", "OFF")) +
-                String.format("Digits: %s (/password_digits)\n", BooleanUtils.toString(settings.isUseDigits(), "ON", "OFF")) +
-                String.format("Special: %s (/password_special)\n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF")) +
-                String.format("Brackets: %s (/password_brackets)\n", BooleanUtils.toString(settings.isUseBrackets(), "ON", "OFF")) +
-                String.format("Chars: %s (/password_chars)\n", settings.getChars());
+                        String.format("UpperCase: %s (/password_uppercase)\n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
+                        String.format("LowerCase: %s (/password_lowercase)\n", BooleanUtils.toString(settings.isUseLowerCase(), "ON", "OFF")) +
+                        String.format("Digits: %s (/password_digits)\n", BooleanUtils.toString(settings.isUseDigits(), "ON", "OFF")) +
+                        String.format("Special: %s (/password_special)\n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF")) +
+                        String.format("Brackets: %s (/password_brackets)\n", BooleanUtils.toString(settings.isUseBrackets(), "ON", "OFF")) +
+                        String.format("Chars: %s (/password_chars)\n", settings.getChars());
     }
 
     protected String getHelp() {
         return
-                "/help - this help\n" +
-                "/password - generate password\n" +
-                "/password_status - password generator status\n" +
-                "/password_length n - password generator status\n" +
-                "/password_uppercase - toggle using uppercase in password generator\n" +
-                "/password_lowercase - toggle using lowercase in password generator\n" +
-                "/password_digits - toggle using digits in password generator\n" +
-                "/password_special - toggle using special chars in password generator\n" +
-                "/password_brackets - toggle using brackets in password generator\n" +
-                "/password_chars chars - toggle using brackets in password generator\n" +
-                "\n" +
-                "owner: @unknown31bot";
+                "Useful tools. Use command /help for additional information.\n\n" +
+
+                        "<b>UUID generator</b>\n" +
+                        "/uuid - generate uuid\n" +
+                        "/uuid_status - uuid generator status\n" +
+                        "/uuid_hyphens - toggle using hyphens\n" +
+                        "/uuid_uppercase - toggle using uppercase\n" +
+                        "/uuid_braces - toggle using braces\n" +
+
+                        "<b>Password Generator</b>\n" +
+                        "/password - generate password\n" +
+                        "/password_status - password generator status\n" +
+                        "/password_length - password generator status\n" +
+                        "/password_uppercase - toggle using uppercase\n" +
+                        "/password_lowercase - toggle using lowercase\n" +
+                        "/password_digits - toggle using digits\n" +
+                        "/password_special - toggle using special chars\n" +
+                        "/password_brackets - toggle using brackets\n" +
+                        "/password_chars - TBA\n\n" +
+
+                        "Bot owner: @unknown31bot";
     }
 
 }

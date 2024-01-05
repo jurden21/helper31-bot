@@ -23,12 +23,12 @@ public class PasswordCommand extends Command {
     private final BotRepository botRepository;
 
     public String generatePassword(long chatId) {
-        PasswordSettings passwordSettings = botRepository.getPasswordSettings(chatId);
-        List<Character> charList = passwordSettings.getCharList();
+        PasswordSettings settings = botRepository.getPasswordSettings(chatId);
+        List<Character> charList = settings.getCharList();
         Random random = new Random();
         return Stream
                 .iterate(1, n -> n + 1)
-                .limit(passwordSettings.getLength())
+                .limit(settings.getLength())
                 .map(n -> charList.get(random.nextInt(charList.size())).toString())
                 .collect(Collectors.joining());
     }

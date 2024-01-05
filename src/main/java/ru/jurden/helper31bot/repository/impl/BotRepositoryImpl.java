@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.repository.BotRepository;
 import ru.jurden.helper31bot.repository.query.BotQuery;
@@ -33,15 +34,44 @@ public class BotRepositoryImpl implements BotRepository {
     }
 
     @Override
+    public UuidSettings getUuidSettings(long chatId) {
+        UuidSettings settings = new UuidSettings()
+                .setChatId(chatId);
+        jdbcTemplate.query(
+                BotQuery.GET_UUID_SETTINGS.query(),
+                new MapSqlParameterSource()
+                        .addValue("chat_id", chatId, Types.NUMERIC),
+                (rs) -> {
+                    settings
+                            .setUseHyphens(rs.getBoolean("use_hyphens"))
+                            .setUseUpperCase(rs.getBoolean("use_upper_case"))
+                            .setUseBraces(rs.getBoolean("use_braces"));
+                });
+        return settings;
+    }
+
+    @Override
+    public void saveUuidSettings(UuidSettings settings) {
+        jdbcTemplate.update(
+                BotQuery.SAVE_UUID_SETTINGS.query(),
+                new MapSqlParameterSource()
+                        .addValue("chat_id", settings.getChatId(), Types.NUMERIC)
+                        .addValue("use_hyphens", BooleanUtils.toInteger(settings.isUseHyphens()), Types.NUMERIC)
+                        .addValue("use_upper_case", BooleanUtils.toInteger(settings.isUseUpperCase()), Types.NUMERIC)
+                        .addValue("use_braces", BooleanUtils.toInteger(settings.isUseBraces()), Types.NUMERIC)
+        );
+    }
+
+    @Override
     public PasswordSettings getPasswordSettings(long chatId) {
-        PasswordSettings passwordSettings = new PasswordSettings()
+        PasswordSettings settings = new PasswordSettings()
                 .setChatId(chatId);
         jdbcTemplate.query(
                 BotQuery.GET_PASSWORD_SETTINGS.query(),
                 new MapSqlParameterSource()
                         .addValue("chat_id", chatId, Types.NUMERIC),
                 (rs) -> {
-                    passwordSettings
+                    settings
                             .setLength(rs.getInt("length"))
                             .setUseUpperCase(rs.getBoolean("use_upper_case"))
                             .setUseLowerCase(rs.getBoolean("use_lower_case"))
@@ -50,22 +80,22 @@ public class BotRepositoryImpl implements BotRepository {
                             .setUseBrackets(rs.getBoolean("use_brackets"))
                             .setChars(rs.getString("chars"));
                 });
-        return passwordSettings;
+        return settings;
     }
 
     @Override
-    public void savePasswordSettings(PasswordSettings passwordSettings) {
+    public void savePasswordSettings(PasswordSettings settings) {
         jdbcTemplate.update(
                 BotQuery.SAVE_PASSWORD_SETTINGS.query(),
                 new MapSqlParameterSource()
-                        .addValue("chat_id", passwordSettings.getChatId(), Types.NUMERIC)
-                        .addValue("length", passwordSettings.getLength(), Types.NUMERIC)
-                        .addValue("use_upper_case", BooleanUtils.toInteger(passwordSettings.isUseUpperCase()), Types.NUMERIC)
-                        .addValue("use_lower_case", BooleanUtils.toInteger(passwordSettings.isUseLowerCase()), Types.NUMERIC)
-                        .addValue("use_digits", BooleanUtils.toInteger(passwordSettings.isUseDigits()), Types.NUMERIC)
-                        .addValue("use_special", BooleanUtils.toInteger(passwordSettings.isUseSpecial()), Types.NUMERIC)
-                        .addValue("use_brackets", BooleanUtils.toInteger(passwordSettings.isUseBrackets()), Types.NUMERIC)
-                        .addValue("chars", passwordSettings.getChars(), Types.VARCHAR)
+                        .addValue("chat_id", settings.getChatId(), Types.NUMERIC)
+                        .addValue("length", settings.getLength(), Types.NUMERIC)
+                        .addValue("use_upper_case", BooleanUtils.toInteger(settings.isUseUpperCase()), Types.NUMERIC)
+                        .addValue("use_lower_case", BooleanUtils.toInteger(settings.isUseLowerCase()), Types.NUMERIC)
+                        .addValue("use_digits", BooleanUtils.toInteger(settings.isUseDigits()), Types.NUMERIC)
+                        .addValue("use_special", BooleanUtils.toInteger(settings.isUseSpecial()), Types.NUMERIC)
+                        .addValue("use_brackets", BooleanUtils.toInteger(settings.isUseBrackets()), Types.NUMERIC)
+                        .addValue("chars", settings.getChars(), Types.VARCHAR)
         );
     }
 }
