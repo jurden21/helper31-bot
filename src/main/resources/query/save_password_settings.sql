@@ -7,4 +7,5 @@ set length = excluded.length,
     use_digits = excluded.use_digits,
     use_special = excluded.use_special,
     use_brackets = excluded.use_brackets,
-    chars = excluded.chars
+    chars = excluded.chars,
+    updated_on = current_timestamp

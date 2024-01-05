@@ -3,4 +3,5 @@ values (:chat_id, :use_hyphens, :use_upper_case, :use_braces)
 on conflict (chat_id) do update
 set use_hyphens = excluded.use_hyphens,
     use_upper_case = excluded.use_upper_case,
-    use_braces = excluded.use_braces
+    use_braces = excluded.use_braces,
+    updated_on = current_timestamp

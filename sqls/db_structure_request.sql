@@ -18,12 +18,16 @@ create table bot_helper31_password_settings (
     use_digits int not null default 1,
     use_special int not null default 0,
     use_brackets int not null default 0,
-    chars text
+    chars text,
+    inserted_on timestamp with time zone not null default current_timestamp,
+    updated_on timestamp with time zone not null default current_timestamp
 );
 drop table if exists bot_helper31_uuid_settings;
 create table bot_helper31_uuid_settings (
     chat_id bigint not null primary key,
     use_hyphens int not null default 1,
     use_upper_case int not null default 0,
-    use_braces int not null default 1
+    use_braces int not null default 1,
+    inserted_on timestamp with time zone not null default current_timestamp,
+    updated_on timestamp with time zone not null default current_timestamp
 );
