@@ -41,7 +41,7 @@ public abstract class Command {
                         "/uuid_status - uuid generator status\n" +
                         "/uuid_hyphens - toggle using hyphens\n" +
                         "/uuid_uppercase - toggle using uppercase\n" +
-                        "/uuid_braces - toggle using braces\n" +
+                        "/uuid_braces - toggle using braces\n\n" +
 
                         "<b>Password Generator</b>\n" +
                         "/password - generate password\n" +

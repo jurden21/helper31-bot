@@ -14,6 +14,7 @@ public class CommandFactory {
     private final UuidStatusCommand uuidStatusCommand;
     private final UuidHyphensCommand uuidHyphensCommand;
     private final UuidUpperCaseCommand uuidUpperCaseCommand;
+    private final UuidBracesCommand uuidBracesCommand;
     private final PasswordCommand passwordCommand;
     private final PasswordStatusCommand passwordStatusCommand;
     private final PasswordUpperCaseCommand passwordUpperCaseCommand;
@@ -25,6 +26,7 @@ public class CommandFactory {
     public static final String GUID_STATUS_COMMAND = COMMAND_PREFIX + "uuid_status";
     public static final String GUID_HYPHENS_COMMAND = COMMAND_PREFIX + "uuid_hyphens";
     public static final String GUID_UPPERCASE_COMMAND = COMMAND_PREFIX + "uuid_uppercase";
+    public static final String GUID_BRACES_COMMAND = COMMAND_PREFIX + "uuid_braces";
     public static final String PASSWORD_COMMAND = COMMAND_PREFIX + "password";
     public static final String PASSWORD_STATUS_COMMAND = COMMAND_PREFIX + "password_status";
     public static final String PASSWORD_UPPERCASE_COMMAND = COMMAND_PREFIX + "password_uppercase";
@@ -47,6 +49,9 @@ public class CommandFactory {
             }
             if (GUID_UPPERCASE_COMMAND.equals(command)) {
                 return uuidUpperCaseCommand;
+            }
+            if (GUID_BRACES_COMMAND.equals(command)) {
+                return uuidBracesCommand;
             }
 
             if (PASSWORD_COMMAND.equals(command)) {
