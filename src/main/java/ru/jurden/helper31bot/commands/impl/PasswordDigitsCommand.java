@@ -26,7 +26,7 @@ public class PasswordDigitsCommand extends Command {
 
         PasswordSettings settings = botRepository.getPasswordSettings(chatId).toggleUseDigits();
         botRepository.savePasswordSettings(settings);
-        message.setText(getStatus(settings));
+        message.setText(getPasswordStatus(settings));
 
         return message;
     }

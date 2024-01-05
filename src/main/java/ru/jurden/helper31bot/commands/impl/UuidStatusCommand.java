@@ -12,7 +12,7 @@ import ru.jurden.helper31bot.repository.BotRepository;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PasswordStatusCommand extends Command {
+public class UuidStatusCommand extends Command {
 
     private BotRepository botRepository;
 
@@ -22,7 +22,7 @@ public class PasswordStatusCommand extends Command {
         SendMessage message = new SendMessage();
         message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
-        message.setText(getPasswordStatus(botRepository.getPasswordSettings(chatId)));
+        message.setText(getUuidStatus(botRepository.getUuidSettings(chatId)));
         return message;
     }
 }

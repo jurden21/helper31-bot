@@ -26,7 +26,7 @@ public class PasswordUpperCaseCommand extends Command {
 
         PasswordSettings settings = botRepository.getPasswordSettings(chatId).toggleUseUpperCase();
         botRepository.savePasswordSettings(settings);
-        message.setText(getStatus(settings));
+        message.setText(getPasswordStatus(settings));
 
         return message;
     }

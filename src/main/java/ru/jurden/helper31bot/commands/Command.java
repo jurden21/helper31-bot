@@ -5,20 +5,31 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.entity.PasswordSettings;
+import ru.jurden.helper31bot.entity.UuidSettings;
 
 @Getter
 public abstract class Command {
     abstract public SendMessage execute(Update update);
 
-    protected String getStatus(PasswordSettings settings) {
+    protected String getUuidStatus(UuidSettings settings) {
         return
-                String.format("Length: %d (/password_length n)\n", settings.getLength()) +
-                        String.format("UpperCase: %s (/password_uppercase)\n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
-                        String.format("LowerCase: %s (/password_lowercase)\n", BooleanUtils.toString(settings.isUseLowerCase(), "ON", "OFF")) +
-                        String.format("Digits: %s (/password_digits)\n", BooleanUtils.toString(settings.isUseDigits(), "ON", "OFF")) +
-                        String.format("Special: %s (/password_special)\n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF")) +
-                        String.format("Brackets: %s (/password_brackets)\n", BooleanUtils.toString(settings.isUseBrackets(), "ON", "OFF")) +
-                        String.format("Chars: %s (/password_chars)\n", settings.getChars());
+                "<b>UUID Generator Settings</b>\n" +
+                        String.format("<code>Hyphens:   %s</code>  (/uuid_hyphens)\n", BooleanUtils.toString(settings.isUseHyphens(), "ON", "OFF")) +
+                        String.format("<code>UpperCase: %s</code>  (/uuid_uppercase)\n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
+                        String.format("<code>Braces:    %s</code>  (/uuid_braces)\n", BooleanUtils.toString(settings.isUseBraces(), "ON", "OFF"));
+
+    }
+
+    protected String getPasswordStatus(PasswordSettings settings) {
+        return
+                "<b>Password Generator Settings</b>\n" +
+                        String.format("<code>Length:    %d</code>  (/password_length)\n", settings.getLength()) +
+                        String.format("<code>UpperCase: %s</code>  (/password_uppercase)\n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
+                        String.format("<code>LowerCase: %s</code>  (/password_lowercase)\n", BooleanUtils.toString(settings.isUseLowerCase(), "ON", "OFF")) +
+                        String.format("<code>Digits:    %s</code>  (/password_digits)\n", BooleanUtils.toString(settings.isUseDigits(), "ON", "OFF")) +
+                        String.format("<code>Special:   %s</code>  (/password_special)\n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF")) +
+                        String.format("<code>Brackets:  %s</code>  (/password_brackets)\n", BooleanUtils.toString(settings.isUseBrackets(), "ON", "OFF")) +
+                        String.format("<code>Chars:     %s</code>  (/password_chars)\n", settings.getChars());
     }
 
     protected String getHelp() {

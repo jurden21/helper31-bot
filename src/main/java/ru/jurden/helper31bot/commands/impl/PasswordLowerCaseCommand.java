@@ -26,7 +26,7 @@ public class PasswordLowerCaseCommand extends Command {
 
         PasswordSettings settings = botRepository.getPasswordSettings(chatId).toggleUseLowerCase();
         botRepository.savePasswordSettings(settings);
-        message.setText(getStatus(settings));
+        message.setText(getPasswordStatus(settings));
 
         return message;
     }

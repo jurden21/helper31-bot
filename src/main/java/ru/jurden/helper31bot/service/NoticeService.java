@@ -16,7 +16,7 @@ public class NoticeService {
         SendMessage message = new SendMessage();
         message.setChatId(botConfig.getLogChatId());
         message.setText(
-                String.format("log: %s (%s %s) [%d]: %s",
+                String.format("%s (%s %s) [%d]: %s",
                         update.getMessage().getChat().getUserName(),
                         update.getMessage().getChat().getFirstName(),
                         update.getMessage().getChat().getLastName(),
