@@ -15,7 +15,7 @@ import java.util.Arrays;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public final class Bot extends TelegramLongPollingBot {
+public final class Helper31Bot extends TelegramLongPollingBot {
 
     final BotConfig botConfig;
     final BotRepository botRepository;

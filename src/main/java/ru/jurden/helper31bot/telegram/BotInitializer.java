@@ -10,9 +10,9 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @Component
 public class BotInitializer {
 
-    final Bot bot;
+    final Helper31Bot bot;
 
-    public BotInitializer(Bot bot) {
+    public BotInitializer(Helper31Bot bot) {
         this.bot = bot;
     }
 
