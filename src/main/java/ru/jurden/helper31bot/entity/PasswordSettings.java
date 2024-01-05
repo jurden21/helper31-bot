@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 @Data
 @Accessors(chain = true)
 public class PasswordSettings {
+    public static final int DEFAULT_LENGTH = 16;
+    public static final int MIN_LENGTH = 4;
+    public static final int MAX_LENGTH = 256;
     public static final List<Character> LOWER_CASE = List.of(
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
@@ -24,7 +27,7 @@ public class PasswordSettings {
             '(', ')', '{', '}', '[', ']', '<', '>');
 
     private long chatId;
-    private int length = 12;
+    private int length = DEFAULT_LENGTH;
     private boolean useUpperCase = true;
     private boolean useLowerCase = true;
     private boolean useDigits = true;

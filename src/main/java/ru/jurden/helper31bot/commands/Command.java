@@ -9,6 +9,9 @@ import ru.jurden.helper31bot.entity.UuidSettings;
 
 @Getter
 public abstract class Command {
+
+    protected CommandState state = CommandState.READY;
+
     abstract public SendMessage execute(Update update);
 
     protected String getUuidStatus(UuidSettings settings) {
@@ -20,6 +23,14 @@ public abstract class Command {
 
     }
 
+    public void resetState() {
+        state = CommandState.READY;
+    }
+
+    public boolean isWaiting() {
+        return state != CommandState.READY;
+    }
+
     protected String getPasswordStatus(PasswordSettings settings) {
         return
                 "<b>Password Generator Settings</b>\n" +
@@ -27,8 +38,8 @@ public abstract class Command {
                         String.format("<code>UpperCase: %s</code>  (/password_uppercase)\n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
                         String.format("<code>LowerCase: %s</code>  (/password_lowercase)\n", BooleanUtils.toString(settings.isUseLowerCase(), "ON", "OFF")) +
                         String.format("<code>Digits:    %s</code>  (/password_digits)\n", BooleanUtils.toString(settings.isUseDigits(), "ON", "OFF")) +
-                        String.format("<code>Special:   %s</code>  (/password_special)\n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF")) +
                         String.format("<code>Brackets:  %s</code>  (/password_brackets)\n", BooleanUtils.toString(settings.isUseBrackets(), "ON", "OFF")) +
+                        String.format("<code>Special:   %s</code>  (/password_special)\n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF")) +
                         String.format("<code>Chars:     %s</code>  (/password_chars)\n", settings.getChars());
     }
 
@@ -50,8 +61,8 @@ public abstract class Command {
                         "/password_uppercase - toggle using uppercase\n" +
                         "/password_lowercase - toggle using lowercase\n" +
                         "/password_digits - toggle using digits\n" +
-                        "/password_special - toggle using special chars\n" +
                         "/password_brackets - toggle using brackets\n" +
+                        "/password_special - toggle using special chars\n" +
                         "/password_chars - TBA\n\n" +
 
                         "Bot owner: @unknown31bot";

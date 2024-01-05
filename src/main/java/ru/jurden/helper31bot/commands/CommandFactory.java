@@ -17,61 +17,105 @@ public class CommandFactory {
     private final UuidBracesCommand uuidBracesCommand;
     private final PasswordCommand passwordCommand;
     private final PasswordStatusCommand passwordStatusCommand;
+    private final PasswordLengthCommand passwordLengthCommand;
     private final PasswordUpperCaseCommand passwordUpperCaseCommand;
     private final PasswordLowerCaseCommand passwordLowerCaseCommand;
     private final PasswordDigitsCommand passwordDigitsCommand;
 
     public static final String COMMAND_PREFIX = "/";
-    public static final String GUID_COMMAND = COMMAND_PREFIX + "uuid";
-    public static final String GUID_STATUS_COMMAND = COMMAND_PREFIX + "uuid_status";
-    public static final String GUID_HYPHENS_COMMAND = COMMAND_PREFIX + "uuid_hyphens";
-    public static final String GUID_UPPERCASE_COMMAND = COMMAND_PREFIX + "uuid_uppercase";
-    public static final String GUID_BRACES_COMMAND = COMMAND_PREFIX + "uuid_braces";
+    public static final String UUID_COMMAND = COMMAND_PREFIX + "uuid";
+    public static final String UUID_STATUS_COMMAND = COMMAND_PREFIX + "uuid_status";
+    public static final String UUID_HYPHENS_COMMAND = COMMAND_PREFIX + "uuid_hyphens";
+    public static final String UUID_UPPERCASE_COMMAND = COMMAND_PREFIX + "uuid_uppercase";
+    public static final String UUID_BRACES_COMMAND = COMMAND_PREFIX + "uuid_braces";
     public static final String PASSWORD_COMMAND = COMMAND_PREFIX + "password";
     public static final String PASSWORD_STATUS_COMMAND = COMMAND_PREFIX + "password_status";
+    public static final String PASSWORD_LENGTH_COMMAND = COMMAND_PREFIX + "password_length";
     public static final String PASSWORD_UPPERCASE_COMMAND = COMMAND_PREFIX + "password_uppercase";
     public static final String PASSWORD_LOWERCASE_COMMAND = COMMAND_PREFIX + "password_lowercase";
     public static final String PASSWORD_DIGITS_COMMAND = COMMAND_PREFIX + "password_digits";
+    public static final String PASSWORD_BRACKETS_COMMAND = COMMAND_PREFIX + "password_brackets";
+    public static final String PASSWORD_SPECIAL_COMMAND = COMMAND_PREFIX + "password_special";
+    public static final String PASSWORD_CHARS_COMMAND = COMMAND_PREFIX + "password_chars";
 
     public Command getCommand(Update update) {
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             String command = update.getMessage().getText();
 
-            if (GUID_COMMAND.equals(command)) {
+            if (UUID_COMMAND.equals(command)) {
+                resetStates();
                 return uuidCommand;
             }
-            if (GUID_STATUS_COMMAND.equals(command)) {
+            if (UUID_STATUS_COMMAND.equals(command)) {
+                resetStates();
                 return uuidStatusCommand;
             }
-            if (GUID_HYPHENS_COMMAND.equals(command)) {
+            if (UUID_HYPHENS_COMMAND.equals(command)) {
+                resetStates();
                 return uuidHyphensCommand;
             }
-            if (GUID_UPPERCASE_COMMAND.equals(command)) {
+            if (UUID_UPPERCASE_COMMAND.equals(command)) {
+                resetStates();
                 return uuidUpperCaseCommand;
             }
-            if (GUID_BRACES_COMMAND.equals(command)) {
+            if (UUID_BRACES_COMMAND.equals(command)) {
+                resetStates();
                 return uuidBracesCommand;
             }
 
             if (PASSWORD_COMMAND.equals(command)) {
+                resetStates();
                 return passwordCommand;
             }
             if (PASSWORD_STATUS_COMMAND.equals(command)) {
+                resetStates();
                 return passwordStatusCommand;
             }
+            if (PASSWORD_LENGTH_COMMAND.equals(command)) {
+                resetStates();
+                return passwordLengthCommand;
+            }
             if (PASSWORD_UPPERCASE_COMMAND.equals(command)) {
+                resetStates();
                 return passwordUpperCaseCommand;
             }
             if (PASSWORD_LOWERCASE_COMMAND.equals(command)) {
+                resetStates();
                 return passwordLowerCaseCommand;
             }
             if (PASSWORD_DIGITS_COMMAND.equals(command)) {
+                resetStates();
                 return passwordDigitsCommand;
             }
+            if (PASSWORD_BRACKETS_COMMAND.equals(command)) {
+                resetStates();
+                return null;
+            }
+            if (PASSWORD_SPECIAL_COMMAND.equals(command)) {
+                resetStates();
+                return null;
+            }
+            if (PASSWORD_CHARS_COMMAND.equals(command)) {
+                resetStates();
+                return null;
+            }
+
+            if (passwordLengthCommand.isWaiting()) {
+                return passwordLengthCommand;
+            }
+//            if (passwordCharsCommand.isWaiting()) {
+//                return passwordLengthCommand;
+//            }
         }
 
+        resetStates();
         return helpCommand;
+    }
+
+    private void resetStates() {
+        passwordLengthCommand.resetState();
+        //passwordCharsCommand.resetState();
     }
 
 }
