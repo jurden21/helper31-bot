@@ -17,8 +17,6 @@ create table bot_helper31_password_settings (
     use_lower_case int not null default 1,
     use_digits int not null default 1,
     use_special int not null default 0,
-    use_brackets int not null default 0,
-    chars text,
     inserted_on timestamp with time zone not null default current_timestamp,
     updated_on timestamp with time zone not null default current_timestamp
 );

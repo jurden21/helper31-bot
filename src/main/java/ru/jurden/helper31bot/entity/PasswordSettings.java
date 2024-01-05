@@ -22,9 +22,8 @@ public class PasswordSettings {
     public static final List<Character> DIGITS = List.of(
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
     public static final List<Character> SPECIAL = List.of(
-            '!', '"', '#', '$', '%', '&', '\'', '*', '+', ',', '-' ,'.' ,'/' ,':' ,';', '=', '?', '@', '^', '_', '`', '|', '~');
-    public static final List<Character> BRACKETS = List.of(
-            '(', ')', '{', '}', '[', ']', '<', '>');
+            '!', '"', '#', '$', '%', '&', '\'', '*', '+', ',', '-' ,'.' ,'/' ,':' ,';', '=', '?', '@', '^',
+            '_', '`', '|', '~', '(', ')', '{', '}', '[', ']', '<', '>');
 
     private long chatId;
     private int length = DEFAULT_LENGTH;
@@ -32,14 +31,9 @@ public class PasswordSettings {
     private boolean useLowerCase = true;
     private boolean useDigits = true;
     private boolean useSpecial = false;
-    private boolean useBrackets = false;
-    private String chars = "";
 
     public List<Character> getCharList() {
         List<Character> charList = new ArrayList<>();
-        if (!chars.isEmpty()) {
-            return chars.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
-        }
         if (useLowerCase) {
             charList.addAll(LOWER_CASE);
         }
@@ -51,9 +45,6 @@ public class PasswordSettings {
         }
         if (useSpecial) {
             charList.addAll(SPECIAL);
-        }
-        if (useBrackets) {
-            charList.addAll(BRACKETS);
         }
         return charList;
     }
@@ -73,4 +64,8 @@ public class PasswordSettings {
         return this;
     }
 
+    public PasswordSettings toggleUseSpecial() {
+        useSpecial = !useSpecial;
+        return this;
+    }
 }

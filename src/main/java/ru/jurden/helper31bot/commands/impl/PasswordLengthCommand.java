@@ -7,8 +7,8 @@ import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.Command;
-import ru.jurden.helper31bot.commands.CommandState;
 import ru.jurden.helper31bot.entity.PasswordSettings;
+import ru.jurden.helper31bot.enums.CommandState;
 import ru.jurden.helper31bot.repository.BotRepository;
 
 @Slf4j

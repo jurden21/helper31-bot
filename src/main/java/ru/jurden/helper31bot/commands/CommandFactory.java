@@ -34,9 +34,7 @@ public class CommandFactory {
     public static final String PASSWORD_UPPERCASE_COMMAND = COMMAND_PREFIX + "password_uppercase";
     public static final String PASSWORD_LOWERCASE_COMMAND = COMMAND_PREFIX + "password_lowercase";
     public static final String PASSWORD_DIGITS_COMMAND = COMMAND_PREFIX + "password_digits";
-    public static final String PASSWORD_BRACKETS_COMMAND = COMMAND_PREFIX + "password_brackets";
     public static final String PASSWORD_SPECIAL_COMMAND = COMMAND_PREFIX + "password_special";
-    public static final String PASSWORD_CHARS_COMMAND = COMMAND_PREFIX + "password_chars";
 
     public Command getCommand(Update update) {
 
@@ -88,15 +86,7 @@ public class CommandFactory {
                 resetStates();
                 return passwordDigitsCommand;
             }
-            if (PASSWORD_BRACKETS_COMMAND.equals(command)) {
-                resetStates();
-                return null;
-            }
             if (PASSWORD_SPECIAL_COMMAND.equals(command)) {
-                resetStates();
-                return null;
-            }
-            if (PASSWORD_CHARS_COMMAND.equals(command)) {
                 resetStates();
                 return null;
             }
@@ -104,9 +94,6 @@ public class CommandFactory {
             if (passwordLengthCommand.isWaiting()) {
                 return passwordLengthCommand;
             }
-//            if (passwordCharsCommand.isWaiting()) {
-//                return passwordLengthCommand;
-//            }
         }
 
         resetStates();
@@ -115,7 +102,6 @@ public class CommandFactory {
 
     private void resetStates() {
         passwordLengthCommand.resetState();
-        //passwordCharsCommand.resetState();
     }
 
 }

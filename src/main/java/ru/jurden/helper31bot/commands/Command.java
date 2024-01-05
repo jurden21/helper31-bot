@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.entity.UuidSettings;
+import ru.jurden.helper31bot.enums.CommandState;
 
 @Getter
 public abstract class Command {
@@ -38,9 +39,7 @@ public abstract class Command {
                         String.format("<code>UpperCase: %s</code>  (/password_uppercase)\n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
                         String.format("<code>LowerCase: %s</code>  (/password_lowercase)\n", BooleanUtils.toString(settings.isUseLowerCase(), "ON", "OFF")) +
                         String.format("<code>Digits:    %s</code>  (/password_digits)\n", BooleanUtils.toString(settings.isUseDigits(), "ON", "OFF")) +
-                        String.format("<code>Brackets:  %s</code>  (/password_brackets)\n", BooleanUtils.toString(settings.isUseBrackets(), "ON", "OFF")) +
-                        String.format("<code>Special:   %s</code>  (/password_special)\n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF")) +
-                        String.format("<code>Chars:     %s</code>  (/password_chars)\n", settings.getChars());
+                        String.format("<code>Special:   %s</code>  (/password_special)\n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF"));
     }
 
     protected String getHelp() {
@@ -61,9 +60,7 @@ public abstract class Command {
                         "/password_uppercase - toggle using uppercase\n" +
                         "/password_lowercase - toggle using lowercase\n" +
                         "/password_digits - toggle using digits\n" +
-                        "/password_brackets - toggle using brackets\n" +
-                        "/password_special - toggle using special chars\n" +
-                        "/password_chars - TBA\n\n" +
+                        "/password_special - toggle using special chars\n\n" +
 
                         "Bot owner: @unknown31bot";
     }
