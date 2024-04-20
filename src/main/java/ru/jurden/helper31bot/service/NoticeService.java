@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.config.BotConfig;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 @Component
@@ -21,7 +22,7 @@ public class NoticeService {
         message.setChatId(botConfig.getLogChatId());
         message.setText(
                 String.format("%s (%s %s) [%d]: %s",
-                        Objects.isNull(userName) ? userName : "@" + userName,
+                        Objects.isNull(userName) ? "<no-username>" : "@" + userName,
                         update.getMessage().getChat().getFirstName(),
                         update.getMessage().getChat().getLastName(),
                         update.getMessage().getChat().getId(),
@@ -30,11 +31,11 @@ public class NoticeService {
         return message;
     }
 
-    public SendMessage createNotification(String text) {
+    public SendMessage createNotification(String text, StackTraceElement[] stackTraceElements) {
         SendMessage message = new SendMessage();
         message.setParseMode(ParseMode.HTML);
         message.setChatId(botConfig.getLogChatId());
-        message.setText(text);
+        message.setText(String.format("<code>%s%n%s</code>", text, Arrays.toString(stackTraceElements)));
         return message;
     }
 }
