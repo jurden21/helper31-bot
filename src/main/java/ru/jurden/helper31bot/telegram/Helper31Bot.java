@@ -1,6 +1,5 @@
 package ru.jurden.helper31bot.telegram;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -14,7 +13,6 @@ import ru.jurden.helper31bot.repository.BotRepository;
 import ru.jurden.helper31bot.service.NoticeService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -31,12 +29,8 @@ public final class Helper31Bot extends TelegramLongPollingBot {
         return botConfig.getBotName();
     }
 
-    @Override
-    public String getBotToken() {
-        return botConfig.getToken();
-    }
-
     public Helper31Bot(BotConfig botConfig, BotRepository botRepository, CommandFactory commandFactory, NoticeService noticeService) {
+        super(botConfig.getToken());
         this.botConfig = botConfig;
         this.botRepository = botRepository;
         this.commandFactory = commandFactory;
@@ -49,7 +43,8 @@ public final class Helper31Bot extends TelegramLongPollingBot {
         list.add(new BotCommand("/password_status", "password generator status"));
         try {
             execute(new SetMyCommands(list, new BotCommandScopeDefault(), null));
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            log.error("Error while setting up commands", e);
         }
     }
 
@@ -60,11 +55,11 @@ public final class Helper31Bot extends TelegramLongPollingBot {
             execute(noticeService.createNotification(update));
             execute(commandFactory.getCommand(update).execute(update));
         } catch (Exception e) {
+            log.error("Error while processing request", e);
             try {
-                execute(noticeService.createNotification(
-                        "<code>" + e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()) + "</code>"));
+                execute(noticeService.createNotification(e.getMessage(), e.getStackTrace()));
             } catch (Exception s) {
-                log.error("Exception:", s);
+                log.error("Error while sending message about error", s);
             }
         }
 
