@@ -38,9 +38,9 @@ public final class Helper31Bot extends TelegramLongPollingBot {
         List<BotCommand> list = new ArrayList<>();
         list.add(new BotCommand("/help", "help"));
         list.add(new BotCommand("/uuid", "generate uuid"));
-        list.add(new BotCommand("/uuid_status", "uuid generator status"));
-        list.add(new BotCommand("/password", "password generator"));
-        list.add(new BotCommand("/password_status", "password generator status"));
+        list.add(new BotCommand("/uuid_status", "show uuid status"));
+        list.add(new BotCommand("/password", "generate password"));
+        list.add(new BotCommand("/password_status", "show password status"));
         try {
             execute(new SetMyCommands(list, new BotCommandScopeDefault(), null));
         } catch (Exception e) {
