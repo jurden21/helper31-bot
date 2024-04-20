@@ -6,7 +6,6 @@ create table bot_helper31_request (
     user_name text,
     last_name text,
     first_name text,
-    location text,
     command text
 );
 drop table if exists bot_helper31_password_settings;
