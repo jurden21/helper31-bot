@@ -2,12 +2,13 @@ package ru.jurden.helper31bot.repository.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.BooleanUtils;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.entity.PasswordSettings;
+import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.repository.BotRepository;
 import ru.jurden.helper31bot.repository.query.BotQuery;
 
@@ -18,6 +19,8 @@ import java.sql.Types;
 public class BotRepositoryImpl implements BotRepository {
 
     public final NamedParameterJdbcTemplate jdbcTemplate;
+    private static final String CHAT_ID = "chat_id";
+    private static final String USE_UPPER_CASE = "use_upper_case";
 
     @Override
     public void saveRequest(Message message) {
@@ -40,13 +43,12 @@ public class BotRepositoryImpl implements BotRepository {
         jdbcTemplate.query(
                 BotQuery.GET_UUID_SETTINGS.query(),
                 new MapSqlParameterSource()
-                        .addValue("chat_id", chatId, Types.NUMERIC),
-                (rs) -> {
-                    settings
+                        .addValue(CHAT_ID, chatId, Types.NUMERIC),
+                (RowCallbackHandler) rs -> settings
                             .setUseHyphens(rs.getBoolean("use_hyphens"))
-                            .setUseUpperCase(rs.getBoolean("use_upper_case"))
-                            .setUseBraces(rs.getBoolean("use_braces"));
-                });
+                            .setUseUpperCase(rs.getBoolean(USE_UPPER_CASE))
+                            .setUseBraces(rs.getBoolean("use_braces"))
+                );
         return settings;
     }
 
@@ -55,9 +57,9 @@ public class BotRepositoryImpl implements BotRepository {
         jdbcTemplate.update(
                 BotQuery.SAVE_UUID_SETTINGS.query(),
                 new MapSqlParameterSource()
-                        .addValue("chat_id", settings.getChatId(), Types.NUMERIC)
+                        .addValue(CHAT_ID, settings.getChatId(), Types.NUMERIC)
                         .addValue("use_hyphens", BooleanUtils.toInteger(settings.isUseHyphens()), Types.NUMERIC)
-                        .addValue("use_upper_case", BooleanUtils.toInteger(settings.isUseUpperCase()), Types.NUMERIC)
+                        .addValue(USE_UPPER_CASE, BooleanUtils.toInteger(settings.isUseUpperCase()), Types.NUMERIC)
                         .addValue("use_braces", BooleanUtils.toInteger(settings.isUseBraces()), Types.NUMERIC)
         );
     }
@@ -69,15 +71,14 @@ public class BotRepositoryImpl implements BotRepository {
         jdbcTemplate.query(
                 BotQuery.GET_PASSWORD_SETTINGS.query(),
                 new MapSqlParameterSource()
-                        .addValue("chat_id", chatId, Types.NUMERIC),
-                (rs) -> {
-                    settings
-                            .setLength(rs.getInt("length"))
-                            .setUseUpperCase(rs.getBoolean("use_upper_case"))
-                            .setUseLowerCase(rs.getBoolean("use_lower_case"))
-                            .setUseDigits(rs.getBoolean("use_digits"))
-                            .setUseSpecial(rs.getBoolean("use_special"));
-                });
+                        .addValue(CHAT_ID, chatId, Types.NUMERIC),
+                (RowCallbackHandler) rs -> settings
+                        .setLength(rs.getInt("length"))
+                        .setUseUpperCase(rs.getBoolean(USE_UPPER_CASE))
+                        .setUseLowerCase(rs.getBoolean("use_lower_case"))
+                        .setUseDigits(rs.getBoolean("use_digits"))
+                        .setUseSpecial(rs.getBoolean("use_special"))
+                );
         return settings;
     }
 
@@ -86,9 +87,9 @@ public class BotRepositoryImpl implements BotRepository {
         jdbcTemplate.update(
                 BotQuery.SAVE_PASSWORD_SETTINGS.query(),
                 new MapSqlParameterSource()
-                        .addValue("chat_id", settings.getChatId(), Types.NUMERIC)
+                        .addValue(CHAT_ID, settings.getChatId(), Types.NUMERIC)
                         .addValue("length", settings.getLength(), Types.NUMERIC)
-                        .addValue("use_upper_case", BooleanUtils.toInteger(settings.isUseUpperCase()), Types.NUMERIC)
+                        .addValue(USE_UPPER_CASE, BooleanUtils.toInteger(settings.isUseUpperCase()), Types.NUMERIC)
                         .addValue("use_lower_case", BooleanUtils.toInteger(settings.isUseLowerCase()), Types.NUMERIC)
                         .addValue("use_digits", BooleanUtils.toInteger(settings.isUseDigits()), Types.NUMERIC)
                         .addValue("use_special", BooleanUtils.toInteger(settings.isUseSpecial()), Types.NUMERIC)

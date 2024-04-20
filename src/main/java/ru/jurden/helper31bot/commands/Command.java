@@ -21,7 +21,7 @@ public abstract class Command {
                         String.format("<code>Hyphens:   %s</code>  (/uuid_hyphens)%n", BooleanUtils.toString(settings.isUseHyphens(), "ON", "OFF")) +
                         String.format("<code>UpperCase: %s</code>  (/uuid_uppercase)%n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
                         String.format("<code>Braces:    %s</code>  (/uuid_braces)%n", BooleanUtils.toString(settings.isUseBraces(), "ON", "OFF")) +
-                        String.format("%nUse: /uuid");
+                        String.format("%nGenerate: /uuid");
     }
 
     public void resetState() {
@@ -40,7 +40,7 @@ public abstract class Command {
                         String.format("<code>LowerCase: %s</code>  (/password_lowercase)%n", BooleanUtils.toString(settings.isUseLowerCase(), "ON", "OFF")) +
                         String.format("<code>Digits:    %s</code>  (/password_digits)%n", BooleanUtils.toString(settings.isUseDigits(), "ON", "OFF")) +
                         String.format("<code>Special:   %s</code>  (/password_special)%n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF")) +
-                        String.format("%nUse: /password");
+                        String.format("%nGenerate: /password");
     }
 
     protected String getHelp() {

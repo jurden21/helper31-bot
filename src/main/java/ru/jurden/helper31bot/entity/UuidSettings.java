@@ -32,7 +32,7 @@ public class UuidSettings {
     public String generate() {
         String uuid = UUID.randomUUID().toString();
         if (!useHyphens) {
-            uuid = uuid.replaceAll("-", "");
+            uuid = uuid.replace("-", "");
         }
         if (useUpperCase) {
             uuid = uuid.toUpperCase();

@@ -25,7 +25,7 @@ public class UuidCommand extends Command {
         SendMessage message = new SendMessage();
         message.setParseMode(ParseMode.MARKDOWNV2);
         message.setChatId(update.getMessage().getChatId());
-        message.setText("`" + generate(update.getMessage().getChatId()) + "`");
+        message.setText(String.format("`%s`", generate(update.getMessage().getChatId())));
         return message;
     }
 }

@@ -35,10 +35,10 @@ public class PasswordCommand extends Command {
                 .limit(settings.getLength())
                 .map(n -> charList.get(random.nextInt(charList.size())).toString())
                 .collect(Collectors.joining())
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll("\"", "&quot;");
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;");
     }
 
     @Override
@@ -46,7 +46,7 @@ public class PasswordCommand extends Command {
         SendMessage message = new SendMessage();
         message.setParseMode(ParseMode.HTML);
         message.setChatId(update.getMessage().getChatId());
-        message.setText("<code>" + generatePassword(update.getMessage().getChatId()) + "</code>");
+        message.setText(String.format("<code>%s</code>", generatePassword(update.getMessage().getChatId())));
         return message;
     }
 }
