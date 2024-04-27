@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.jurden.helper31bot.commands.CommandFactory;
 import ru.jurden.helper31bot.config.BotConfig;
 import ru.jurden.helper31bot.repository.BotRepository;
@@ -43,8 +44,8 @@ public final class Helper31Bot extends TelegramLongPollingBot {
         list.add(new BotCommand("/password_status", "show password status"));
         try {
             execute(new SetMyCommands(list, new BotCommandScopeDefault(), null));
-        } catch (Exception e) {
-            log.error("Error while setting up commands", e);
+        } catch (TelegramApiException e) {
+            log.error("Error while setting up commands: {}", e.getMessage());
         }
     }
 
