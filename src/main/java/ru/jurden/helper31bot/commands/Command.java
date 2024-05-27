@@ -63,7 +63,7 @@ public abstract class Command {
                  /password_digits - toggle using digits
                  /password_special - toggle using special chars
                  \s
-                 Bot owner: @yrdn71
+                 https://github.com/jurden21/helper31-bot
                 """;
     }
 
