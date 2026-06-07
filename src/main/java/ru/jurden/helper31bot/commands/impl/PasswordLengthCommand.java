@@ -9,14 +9,14 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.Command;
 import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.enums.CommandState;
-import ru.jurden.helper31bot.repository.BotRepository;
+import ru.jurden.helper31bot.service.PasswordService;
 
 @Slf4j
 @Component
 @AllArgsConstructor
 public class PasswordLengthCommand extends Command {
 
-    private BotRepository botRepository;
+    private final PasswordService passwordService;
 
     private int parseInt(String value) {
         try {
@@ -28,8 +28,8 @@ public class PasswordLengthCommand extends Command {
 
     @Override
     public SendMessage execute(Update update) {
-
         long chatId = update.getMessage().getChatId();
+
         SendMessage message = new SendMessage();
         message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
@@ -40,11 +40,8 @@ public class PasswordLengthCommand extends Command {
             return message;
         }
 
-        int length = Integer.min(Integer.max(parseInt(update.getMessage().getText()),
-                PasswordSettings.MIN_LENGTH), PasswordSettings.MAX_LENGTH);
-
-        PasswordSettings settings = botRepository.getPasswordSettings(chatId).setLength(length);
-        botRepository.savePasswordSettings(settings);
+        int length = parseInt(update.getMessage().getText());
+        PasswordSettings settings = passwordService.setLength(chatId, length);
         message.setText(getPasswordStatus(settings));
 
         return message;

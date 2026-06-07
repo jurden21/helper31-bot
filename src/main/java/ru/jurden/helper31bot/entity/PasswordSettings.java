@@ -10,8 +10,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class PasswordSettings {
     public static final int DEFAULT_LENGTH = 16;
-    public static final int MIN_LENGTH = 4;
-    public static final int MAX_LENGTH = 256;
+
     public static final List<Character> LOWER_CASE = List.of(
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
             'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
@@ -29,7 +28,7 @@ public class PasswordSettings {
     private boolean useUpperCase = true;
     private boolean useLowerCase = true;
     private boolean useDigits = true;
-    private boolean useSpecial = false;
+    private boolean useSpecials = false;
 
     public List<Character> getCharList() {
         List<Character> charList = new ArrayList<>();
@@ -42,29 +41,9 @@ public class PasswordSettings {
         if (useDigits) {
             charList.addAll(DIGITS);
         }
-        if (useSpecial) {
+        if (useSpecials) {
             charList.addAll(SPECIAL);
         }
         return charList;
-    }
-
-    public PasswordSettings toggleUseUpperCase() {
-        useUpperCase = !useUpperCase;
-        return this;
-    }
-
-    public PasswordSettings toggleUseLowerCase() {
-        useLowerCase = !useLowerCase;
-        return this;
-    }
-
-    public PasswordSettings toggleUseDigits() {
-        useDigits = !useDigits;
-        return this;
-    }
-
-    public PasswordSettings toggleUseSpecial() {
-        useSpecial = !useSpecial;
-        return this;
     }
 }

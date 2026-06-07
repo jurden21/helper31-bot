@@ -39,7 +39,7 @@ public abstract class Command {
                         String.format("<code>UpperCase: %s</code>  (/password_uppercase)%n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
                         String.format("<code>LowerCase: %s</code>  (/password_lowercase)%n", BooleanUtils.toString(settings.isUseLowerCase(), "ON", "OFF")) +
                         String.format("<code>Digits:    %s</code>  (/password_digits)%n", BooleanUtils.toString(settings.isUseDigits(), "ON", "OFF")) +
-                        String.format("<code>Special:   %s</code>  (/password_special)%n", BooleanUtils.toString(settings.isUseSpecial(), "ON", "OFF")) +
+                        String.format("<code>Special:   %s</code>  (/password_special)%n", BooleanUtils.toString(settings.isUseSpecials(), "ON", "OFF")) +
                         String.format("%nGenerate: /password");
     }
 

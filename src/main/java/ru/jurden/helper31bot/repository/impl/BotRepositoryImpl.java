@@ -77,7 +77,7 @@ public class BotRepositoryImpl implements BotRepository {
                         .setUseUpperCase(rs.getBoolean(USE_UPPER_CASE))
                         .setUseLowerCase(rs.getBoolean("use_lower_case"))
                         .setUseDigits(rs.getBoolean("use_digits"))
-                        .setUseSpecial(rs.getBoolean("use_special"))
+                        .setUseSpecials(rs.getBoolean("use_special"))
                 );
         return settings;
     }
@@ -92,7 +92,7 @@ public class BotRepositoryImpl implements BotRepository {
                         .addValue(USE_UPPER_CASE, BooleanUtils.toInteger(settings.isUseUpperCase()), Types.NUMERIC)
                         .addValue("use_lower_case", BooleanUtils.toInteger(settings.isUseLowerCase()), Types.NUMERIC)
                         .addValue("use_digits", BooleanUtils.toInteger(settings.isUseDigits()), Types.NUMERIC)
-                        .addValue("use_special", BooleanUtils.toInteger(settings.isUseSpecial()), Types.NUMERIC)
+                        .addValue("use_special", BooleanUtils.toInteger(settings.isUseSpecials()), Types.NUMERIC)
         );
     }
 }

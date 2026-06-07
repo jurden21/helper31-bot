@@ -7,22 +7,27 @@ import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.Command;
-import ru.jurden.helper31bot.repository.BotRepository;
+import ru.jurden.helper31bot.entity.PasswordSettings;
+import ru.jurden.helper31bot.service.PasswordService;
 
 @Slf4j
 @Component
 @AllArgsConstructor
 public class PasswordStatusCommand extends Command {
 
-    private BotRepository botRepository;
+    private final PasswordService passwordService;
 
     @Override
     public SendMessage execute(Update update) {
         long chatId = update.getMessage().getChatId();
+
         SendMessage message = new SendMessage();
         message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
-        message.setText(getPasswordStatus(botRepository.getPasswordSettings(chatId)));
+
+        PasswordSettings settings = passwordService.getSettings(chatId);
+        message.setText(getPasswordStatus(settings));
+
         return message;
     }
 }
