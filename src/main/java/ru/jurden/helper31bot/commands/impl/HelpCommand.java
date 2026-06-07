@@ -5,22 +5,28 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.Command;
+import ru.jurden.helper31bot.service.HelpService;
 
 @Slf4j
 @Component
 @AllArgsConstructor
 public class HelpCommand extends Command {
 
+    private final HelpService helpService;
+
     @Override
     public SendMessage execute(Update update) {
-        Chat chat = update.getMessage().getChat();
+        long chatId = update.getMessage().getChatId();
+
         SendMessage message = new SendMessage();
         message.setParseMode(ParseMode.HTML);
-        message.setChatId(chat.getId());
-        message.setText(getHelp());
+        message.setChatId(chatId);
+
+        String help = helpService.getHelp();
+        message.setText(help);
+
         return message;
     }
 

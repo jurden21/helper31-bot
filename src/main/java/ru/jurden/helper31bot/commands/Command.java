@@ -42,29 +42,4 @@ public abstract class Command {
                         String.format("<code>Special:   %s</code>  (/password_special)%n", BooleanUtils.toString(settings.isUseSpecials(), "ON", "OFF")) +
                         String.format("%nGenerate: /password");
     }
-
-    protected String getHelp() {
-        return """
-                 Useful tools. Use command /help for additional information.
-                 \s
-                 <b>UUID generator</b>
-                 /uuid - generate uuid
-                 /uuid_status - uuid generator status
-                 /uuid_hyphens - toggle using hyphens
-                 /uuid_uppercase - toggle using uppercase
-                 /uuid_braces - toggle using braces
-                 \s
-                 <b>Password Generator</b>
-                 /password - generate password
-                 /password_status - password generator status
-                 /password_length - password generator status
-                 /password_uppercase - toggle using uppercase
-                 /password_lowercase - toggle using lowercase
-                 /password_digits - toggle using digits
-                 /password_special - toggle using special chars
-                 \s
-                 https://github.com/jurden21/helper31-bot
-                """;
-    }
-
 }
