@@ -1,4 +1,4 @@
-insert into bot_helper31_password_settings (chat_id, length, use_upper_case, use_lower_case, use_digits, use_special)
+insert into public.password_settings (chat_id, length, use_upper_case, use_lower_case, use_digits, use_special)
 values (:chat_id, :length, :use_upper_case, :use_lower_case, :use_digits, :use_special)
 on conflict (chat_id) do update
 set length = excluded.length,

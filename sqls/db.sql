@@ -1,5 +1,5 @@
-drop table if exists bot_helper31_request;
-create table bot_helper31_request (
+drop table if exists public.requests;
+create table public.requests (
     id bigint generated always as identity primary key,
     requested_on timestamp with time zone not null default current_timestamp,
     sender_id bigint,
@@ -8,8 +8,8 @@ create table bot_helper31_request (
     first_name text,
     command text
 );
-drop table if exists bot_helper31_password_settings;
-create table bot_helper31_password_settings (
+drop table if exists public.password_settings;
+create table public.password_settings (
     chat_id bigint not null primary key,
     length int not null default 12,
     use_upper_case int not null default 1,
@@ -19,8 +19,8 @@ create table bot_helper31_password_settings (
     inserted_on timestamp with time zone not null default current_timestamp,
     updated_on timestamp with time zone not null default current_timestamp
 );
-drop table if exists bot_helper31_uuid_settings;
-create table bot_helper31_uuid_settings (
+drop table if exists public.uuid_settings;
+create table public.uuid_settings (
     chat_id bigint not null primary key,
     use_hyphens int not null default 1,
     use_upper_case int not null default 0,
