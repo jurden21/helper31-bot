@@ -10,9 +10,10 @@ https://t.me/helper31bot
 - You can change use of hyphens, uppercase and braces
 
 ## Run
-You need create bot.properties file in resources folder, which contains:
-```properties
-bot.name=       # Bot's name
-bot.token=      # Bot's token
-bot.logChatId=  # Id of chat for logs
+You need set bot's credentials in application.yml:
+```yaml
+bot:
+  name: name       # Bot's name
+  token: token     # Bot's token
+  log-chat-id: id  # chat_id for notifications
 ```

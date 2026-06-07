@@ -1,6 +1,10 @@
+bot:
+  name: secret
+  token: secret
+  log-chat-id: secret
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/bot_helper
     username: bot_helper
-    password: 
+    password: secret

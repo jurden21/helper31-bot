@@ -12,12 +12,12 @@
 
     <groupId>ru.jurden</groupId>
     <artifactId>Helper31Bot</artifactId>
-    <version>1.0.0</version>
+    <version>0.1</version>
     <name>Helper31Bot</name>
 
     <properties>
         <java.version>17</java.version>
-        <telegram.version>6.7.0</telegram.version>
+        <telegram.version>6.9.7.1</telegram.version>
     </properties>
 
     <dependencies>

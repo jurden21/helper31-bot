@@ -29,4 +29,5 @@ replay_pid*
 *.ipr
 
 target
-bot.properties
+application-bot.yml
+application-local.yml
