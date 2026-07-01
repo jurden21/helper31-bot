@@ -7,14 +7,14 @@ import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.Command;
-import ru.jurden.helper31bot.service.HelpService;
+import ru.jurden.helper31bot.service.TextService;
 
 @Slf4j
 @Component
 @AllArgsConstructor
 public class HelpCommand extends Command {
 
-    private final HelpService helpService;
+    private final TextService textService;
 
     @Override
     public SendMessage execute(Update update) {
@@ -24,7 +24,7 @@ public class HelpCommand extends Command {
         message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
 
-        String help = helpService.getHelp();
+        String help = textService.getHelpText();
         message.setText(help);
 
         return message;

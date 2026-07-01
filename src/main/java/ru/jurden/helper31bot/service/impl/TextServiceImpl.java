@@ -3,17 +3,17 @@ package ru.jurden.helper31bot.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.jurden.helper31bot.service.HelpService;
+import ru.jurden.helper31bot.service.TextService;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class HelpServiceImpl implements HelpService {
+public class TextServiceImpl implements TextService {
 
     public final static String REPO_URL = "https://github.com/jurden/helper31bot";
 
     @Override
-    public String getHelp() {
+    public String getHelpText() {
         return """
                  Useful tools. Use command /help for additional information.
                  \s

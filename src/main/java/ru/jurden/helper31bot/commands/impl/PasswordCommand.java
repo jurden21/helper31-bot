@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.Command;
 import ru.jurden.helper31bot.entity.PasswordSettings;
+import ru.jurden.helper31bot.service.CharService;
 import ru.jurden.helper31bot.service.PasswordService;
 
 import java.util.List;
@@ -21,11 +22,12 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 public class PasswordCommand extends Command {
 
+    private final CharService charService;
     private final PasswordService passwordService;
 
     public String generatePassword(long chatId) {
         PasswordSettings settings = passwordService.getSettings(chatId);
-        List<Character> charList = settings.getCharList();
+        List<Character> charList = charService.getCharList(settings);
         if (CollectionUtils.isEmpty(charList)) {
             return "Please turn on any category of chars";
         }
