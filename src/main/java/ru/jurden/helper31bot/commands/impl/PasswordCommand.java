@@ -26,12 +26,15 @@ public class PasswordCommand extends Command {
     private final PasswordService passwordService;
 
     public String generatePassword(long chatId) {
+        Random random = new Random();
+
         PasswordSettings settings = passwordService.getSettings(chatId);
-        List<Character> charList = charService.getCharList(settings);
+        List<Character> charList = charService.getChars(settings);
+
         if (CollectionUtils.isEmpty(charList)) {
             return "Please turn on any category of chars";
         }
-        Random random = new Random();
+
         return Stream
                 .iterate(1, n -> n + 1)
                 .limit(settings.getLength())

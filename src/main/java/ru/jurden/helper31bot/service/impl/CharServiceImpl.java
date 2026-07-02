@@ -27,7 +27,7 @@ public class CharServiceImpl implements CharService {
             '_', '`', '|', '~', '(', ')', '{', '}', '[', ']', '<', '>');
 
     @Override
-    public List<Character> getCharList(PasswordSettings passwordSettings) {
+    public List<Character> getChars(PasswordSettings passwordSettings) {
         List<Character> charList = new ArrayList<>();
 
         if (passwordSettings.isUseLowerCase()) {
