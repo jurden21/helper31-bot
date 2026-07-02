@@ -10,6 +10,7 @@ import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.commands.Command;
 import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.enums.CommandType;
+import ru.jurden.helper31bot.service.TextService;
 import ru.jurden.helper31bot.service.UuidService;
 
 @Slf4j
@@ -18,6 +19,7 @@ import ru.jurden.helper31bot.service.UuidService;
 public class UuidUpperCaseCommand extends BaseCommand implements Command {
 
     private final UuidService uuidService;
+    private final TextService textService;
 
     @Override
     public CommandType getCommandType() {
@@ -33,7 +35,7 @@ public class UuidUpperCaseCommand extends BaseCommand implements Command {
         message.setChatId(chatId);
 
         UuidSettings settings = uuidService.toggleUseUpperCase(chatId);
-        message.setText(getUuidStatus(settings));
+        message.setText(textService.getUuidStatusText(settings));
 
         return message;
     }

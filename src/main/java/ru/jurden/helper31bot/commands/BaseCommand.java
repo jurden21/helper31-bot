@@ -5,7 +5,6 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.entity.PasswordSettings;
-import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.enums.CommandState;
 
 @Getter
@@ -14,15 +13,6 @@ public abstract class BaseCommand {
     protected CommandState state = CommandState.READY;
 
     public abstract SendMessage execute(Update update);
-
-    protected String getUuidStatus(UuidSettings settings) {
-        return
-                "<b>UUID Generator Settings</b>\n" +
-                        String.format("<code>Hyphens:   %s</code>  (/uuid_hyphens)%n", BooleanUtils.toString(settings.isUseHyphens(), "ON", "OFF")) +
-                        String.format("<code>UpperCase: %s</code>  (/uuid_uppercase)%n", BooleanUtils.toString(settings.isUseUpperCase(), "ON", "OFF")) +
-                        String.format("<code>Braces:    %s</code>  (/uuid_braces)%n", BooleanUtils.toString(settings.isUseBraces(), "ON", "OFF")) +
-                        String.format("%nGenerate: /uuid");
-    }
 
     public void resetState() {
         state = CommandState.READY;
