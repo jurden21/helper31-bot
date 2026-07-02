@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
+import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.service.TextService;
 
@@ -43,7 +44,15 @@ public class TextServiceImpl implements TextService {
                 <code>Braces:    %s</code>  (/uuid_braces)
                 Generate: /uuid
             """;
-
+    public final static String PASSWORD_STATUS_TEXT = """
+                <b>Password Generator Settings</b>
+                <code>Length:    %d</code>  (/password_length)
+                <code>UpperCase: %s</code>  (/password_uppercase)
+                <code>LowerCase: %s</code>  (/password_lowercase)
+                <code>Digits:    %s</code>  (/password_digits)
+                <code>Special:   %s</code>  (/password_special)
+                Generate: /password
+            """;
 
     @Override
     public String getHelpText() {
@@ -56,5 +65,15 @@ public class TextServiceImpl implements TextService {
                 BooleanUtils.toString(settings.isUseHyphens(), OPTION_ON, OPTION_OFF),
                 BooleanUtils.toString(settings.isUseUpperCase(), OPTION_ON, OPTION_OFF),
                 BooleanUtils.toString(settings.isUseBraces(), OPTION_ON, OPTION_OFF));
+    }
+
+    @Override
+    public String getPasswordStatusText(PasswordSettings settings) {
+        return PASSWORD_STATUS_TEXT.formatted(
+                settings.getLength(),
+                BooleanUtils.toString(settings.isUseUpperCase(), OPTION_ON, OPTION_OFF),
+                BooleanUtils.toString(settings.isUseLowerCase(), OPTION_ON, OPTION_OFF),
+                BooleanUtils.toString(settings.isUseDigits(), OPTION_ON, OPTION_OFF),
+                BooleanUtils.toString(settings.isUseSpecials(), OPTION_ON, OPTION_OFF));
     }
 }

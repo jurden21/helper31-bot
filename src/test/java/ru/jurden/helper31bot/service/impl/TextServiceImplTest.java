@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.service.TextService;
 
@@ -62,6 +63,82 @@ class TextServiceImplTest {
             Assertions.assertTrue(text.contains("Hyphens:   OFF"));
             Assertions.assertTrue(text.contains("UpperCase: OFF"));
             Assertions.assertTrue(text.contains("Braces:    ON"));
+        }
+    }
+
+    @Nested
+    class GetPasswordStatusTextTests {
+
+        @Test
+        void getPasswordStatusTextWithUseUpperCase() {
+            PasswordSettings passwordSettings = new PasswordSettings()
+                    .setLength(23)
+                    .setUseLowerCase(true)
+                    .setUseUpperCase(false)
+                    .setUseDigits(false)
+                    .setUseSpecials(false);
+
+            String text = textService.getPasswordStatusText(passwordSettings);
+
+            Assertions.assertTrue(text.contains("Length:    23"));
+            Assertions.assertTrue(text.contains("LowerCase: ON"));
+            Assertions.assertTrue(text.contains("UpperCase: OFF"));
+            Assertions.assertTrue(text.contains("Digits:    OFF"));
+            Assertions.assertTrue(text.contains("Special:   OFF"));
+        }
+
+        @Test
+        void getPasswordStatusTextWithUseLowerCase() {
+            PasswordSettings passwordSettings = new PasswordSettings()
+                    .setLength(23)
+                    .setUseLowerCase(false)
+                    .setUseUpperCase(true)
+                    .setUseDigits(false)
+                    .setUseSpecials(false);
+
+            String text = textService.getPasswordStatusText(passwordSettings);
+
+            Assertions.assertTrue(text.contains("Length:    23"));
+            Assertions.assertTrue(text.contains("LowerCase: OFF"));
+            Assertions.assertTrue(text.contains("UpperCase: ON"));
+            Assertions.assertTrue(text.contains("Digits:    OFF"));
+            Assertions.assertTrue(text.contains("Special:   OFF"));
+        }
+
+        @Test
+        void getPasswordStatusTextWithUseDigits() {
+            PasswordSettings passwordSettings = new PasswordSettings()
+                    .setLength(23)
+                    .setUseLowerCase(false)
+                    .setUseUpperCase(false)
+                    .setUseDigits(true)
+                    .setUseSpecials(false);
+
+            String text = textService.getPasswordStatusText(passwordSettings);
+
+            Assertions.assertTrue(text.contains("Length:    23"));
+            Assertions.assertTrue(text.contains("LowerCase: OFF"));
+            Assertions.assertTrue(text.contains("UpperCase: OFF"));
+            Assertions.assertTrue(text.contains("Digits:    ON"));
+            Assertions.assertTrue(text.contains("Special:   OFF"));
+        }
+
+        @Test
+        void getPasswordStatusTextWithUseSpecials() {
+            PasswordSettings passwordSettings = new PasswordSettings()
+                    .setLength(23)
+                    .setUseLowerCase(false)
+                    .setUseUpperCase(false)
+                    .setUseDigits(false)
+                    .setUseSpecials(true);
+
+            String text = textService.getPasswordStatusText(passwordSettings);
+
+            Assertions.assertTrue(text.contains("Length:    23"));
+            Assertions.assertTrue(text.contains("LowerCase: OFF"));
+            Assertions.assertTrue(text.contains("UpperCase: OFF"));
+            Assertions.assertTrue(text.contains("Digits:    OFF"));
+            Assertions.assertTrue(text.contains("Special:   ON"));
         }
     }
 }

@@ -12,6 +12,7 @@ import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.enums.CommandState;
 import ru.jurden.helper31bot.enums.CommandType;
 import ru.jurden.helper31bot.service.PasswordService;
+import ru.jurden.helper31bot.service.TextService;
 
 @Slf4j
 @Component
@@ -19,6 +20,7 @@ import ru.jurden.helper31bot.service.PasswordService;
 public class PasswordLengthCommand extends BaseCommand implements Command {
 
     private final PasswordService passwordService;
+    private final TextService textService;
 
     @Override
     public CommandType getCommandType() {
@@ -49,7 +51,7 @@ public class PasswordLengthCommand extends BaseCommand implements Command {
 
         int length = parseInt(update.getMessage().getText());
         PasswordSettings settings = passwordService.setLength(chatId, length);
-        message.setText(getPasswordStatus(settings));
+        message.setText(textService.getPasswordStatusText(settings));
 
         return message;
     }

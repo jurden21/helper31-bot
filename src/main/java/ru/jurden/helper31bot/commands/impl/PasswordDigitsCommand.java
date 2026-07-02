@@ -11,6 +11,7 @@ import ru.jurden.helper31bot.commands.Command;
 import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.enums.CommandType;
 import ru.jurden.helper31bot.service.PasswordService;
+import ru.jurden.helper31bot.service.TextService;
 
 @Slf4j
 @Component
@@ -18,6 +19,7 @@ import ru.jurden.helper31bot.service.PasswordService;
 public class PasswordDigitsCommand extends BaseCommand implements Command {
 
     private final PasswordService passwordService;
+    private final TextService textService;
 
     @Override
     public CommandType getCommandType() {
@@ -33,7 +35,7 @@ public class PasswordDigitsCommand extends BaseCommand implements Command {
         message.setChatId(chatId);
 
         PasswordSettings settings = passwordService.toggleUseDigits(chatId);
-        message.setText(getPasswordStatus(settings));
+        message.setText(textService.getPasswordStatusText(settings));
 
         return message;
     }
