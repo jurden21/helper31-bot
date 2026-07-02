@@ -10,7 +10,7 @@ import ru.jurden.helper31bot.service.TextService;
 @RequiredArgsConstructor
 public class TextServiceImpl implements TextService {
 
-    public final static String REPO_URL = "https://github.com/jurden/helper31bot";
+    public final static String REPO_URL = "https://github.com/jurden21/helper31-bot";
 
     @Override
     public String getHelpText() {
