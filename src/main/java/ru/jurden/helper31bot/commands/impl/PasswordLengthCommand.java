@@ -7,16 +7,23 @@ import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.BaseCommand;
+import ru.jurden.helper31bot.commands.Command;
 import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.enums.CommandState;
+import ru.jurden.helper31bot.enums.CommandType;
 import ru.jurden.helper31bot.service.PasswordService;
 
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PasswordLengthCommand extends BaseCommand {
+public class PasswordLengthCommand extends BaseCommand implements Command {
 
     private final PasswordService passwordService;
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.PASSWORD_LENGTH;
+    }
 
     private int parseInt(String value) {
         try {
