@@ -7,7 +7,7 @@ import org.springframework.util.CollectionUtils;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.jurden.helper31bot.commands.Command;
+import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.service.CharService;
 import ru.jurden.helper31bot.service.PasswordService;
@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PasswordCommand extends Command {
+public class PasswordCommand extends BaseCommand {
 
     private final CharService charService;
     private final PasswordService passwordService;

@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.jurden.helper31bot.commands.Command;
+import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.service.UuidService;
 
 @Slf4j
 @Component
 @AllArgsConstructor
-public class UuidStatusCommand extends Command {
+public class UuidStatusCommand extends BaseCommand {
 
     private final UuidService uuidService;
 

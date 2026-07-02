@@ -9,7 +9,7 @@ import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.enums.CommandState;
 
 @Getter
-public abstract class Command {
+public abstract class BaseCommand {
 
     protected CommandState state = CommandState.READY;
 

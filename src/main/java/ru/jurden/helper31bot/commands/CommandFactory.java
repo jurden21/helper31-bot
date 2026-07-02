@@ -37,7 +37,7 @@ public class CommandFactory {
     public static final String PASSWORD_DIGITS_COMMAND = COMMAND_PREFIX + "password_digits";
     public static final String PASSWORD_SPECIAL_COMMAND = COMMAND_PREFIX + "password_special";
 
-    public Command getCommand(Update update) {
+    public BaseCommand getCommand(Update update) {
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             String command = update.getMessage().getText();
