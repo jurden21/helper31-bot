@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.service.TextService;
@@ -139,6 +141,110 @@ class TextServiceImplTest {
             Assertions.assertTrue(text.contains("UpperCase: OFF"));
             Assertions.assertTrue(text.contains("Digits:    OFF"));
             Assertions.assertTrue(text.contains("Special:   ON"));
+        }
+    }
+
+    @Nested
+    class GetActionNotificationTextTests {
+
+        @Test
+        void getActionNotificationTextInvalidMassage() {
+            Message message = null;
+
+            String text = textService.getActionNotificationText(message);
+
+            Assertions.assertEquals("Invalid message", text);
+        }
+
+        @Test
+        void getActionNotificationTextInvalidMassageChat() {
+            Message message = new Message();
+
+            String text = textService.getActionNotificationText(message);
+
+            Assertions.assertEquals("Invalid message", text);
+        }
+
+        @Test
+        void getActionNotificationTextMessageAllFields() {
+            Chat chat = new Chat();
+            chat.setUserName("username");
+            chat.setFirstName("firstname");
+            chat.setLastName("lastname");
+            chat.setId(100L);
+
+            Message message = new Message();
+            message.setChat(chat);
+            message.setText("text");
+
+            String text = textService.getActionNotificationText(message);
+
+            Assertions.assertEquals("@username (firstname lastname) [100]: text", text);
+        }
+
+        @Test
+        void getActionNotificationTextMessageWithUsername() {
+            Chat chat = new Chat();
+            chat.setUserName("username");
+
+            Message message = new Message();
+            message.setChat(chat);
+
+            String text = textService.getActionNotificationText(message);
+
+            Assertions.assertEquals("@username (<no firstname> <no lastname>) [null]: null", text);
+        }
+
+        @Test
+        void getActionNotificationTextMessageWithFirstName() {
+            Chat chat = new Chat();
+            chat.setFirstName("firstname");
+
+            Message message = new Message();
+            message.setChat(chat);
+
+            String text = textService.getActionNotificationText(message);
+
+            Assertions.assertEquals("<no username> (firstname <no lastname>) [null]: null", text);
+        }
+
+        @Test
+        void getActionNotificationTextMessageWithLastName() {
+            Chat chat = new Chat();
+            chat.setLastName("lastname");
+
+            Message message = new Message();
+            message.setChat(chat);
+
+            String text = textService.getActionNotificationText(message);
+
+            Assertions.assertEquals("<no username> (<no firstname> lastname) [null]: null", text);
+        }
+
+        @Test
+        void getActionNotificationTextMessageWithText() {
+            Chat chat = new Chat();
+
+            Message message = new Message();
+            message.setChat(chat);
+            message.setText("text");
+
+            String text = textService.getActionNotificationText(message);
+
+            Assertions.assertEquals("<no username> (<no firstname> <no lastname>) [null]: text", text);
+        }
+
+        @Test
+        void getActionNotificationTextMessageWithChatId() {
+            Chat chat = new Chat();
+            chat.setId(100L);
+
+            Message message = new Message();
+            message.setChat(chat);
+
+            String text = textService.getActionNotificationText(message);
+
+            Assertions.assertEquals("<no username> (<no firstname> <no lastname>) [100]: null", text);
         }
     }
 }

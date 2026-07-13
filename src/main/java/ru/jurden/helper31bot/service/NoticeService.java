@@ -1,33 +1,27 @@
 package ru.jurden.helper31bot.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.config.BotConfig;
 
 import java.util.Arrays;
-import java.util.Objects;
 
-@Component
+@Slf4j
+@Service
 @RequiredArgsConstructor
 public class NoticeService {
 
-    final BotConfig botConfig;
+    private final BotConfig botConfig;
+    private final TextService textService;
 
     public SendMessage createNotification(Update update) {
         SendMessage message = new SendMessage();
-        String userName = update.getMessage().getChat().getUserName();
         message.setChatId(botConfig.getLogChatId());
-        message.setText(
-                String.format("%s (%s %s) [%d]: %s",
-                        Objects.isNull(userName) ? "<no-username>" : "@" + userName,
-                        update.getMessage().getChat().getFirstName(),
-                        update.getMessage().getChat().getLastName(),
-                        update.getMessage().getChat().getId(),
-                        update.getMessage().getText()
-                ));
+        message.setText(textService.getActionNotificationText(update.getMessage()));
         return message;
     }
 
