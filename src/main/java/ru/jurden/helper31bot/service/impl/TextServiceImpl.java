@@ -9,6 +9,7 @@ import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.service.TextService;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 @Slf4j
@@ -57,6 +58,7 @@ public class TextServiceImpl implements TextService {
                 Generate: /password
             """;
     public final static String ACTION_NOTIFICATION_TEXT = "%s (%s %s) [%d]: %s";
+    public final static String ERROR_NOTIFICATION_TEXT = "<code>%s%n%s</code>";
 
     @Override
     public String getHelpText() {
@@ -97,5 +99,10 @@ public class TextServiceImpl implements TextService {
                 Objects.isNull(lastName) ? "<no lastname>" : lastName,
                 message.getChat().getId(),
                 message.getText());
+    }
+
+    @Override
+    public String getErrorNotificationText(String error, StackTraceElement[] stackTrace) {
+        return ERROR_NOTIFICATION_TEXT.formatted(error, Arrays.toString(stackTrace));
     }
 }

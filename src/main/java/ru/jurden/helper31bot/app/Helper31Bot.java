@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.jurden.helper31bot.commands.CommandFactory;
 import ru.jurden.helper31bot.config.BotConfig;
 import ru.jurden.helper31bot.repository.BotRepository;
-import ru.jurden.helper31bot.service.NoticeService;
+import ru.jurden.helper31bot.service.impl.NoticeServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +23,14 @@ public final class Helper31Bot extends TelegramLongPollingBot {
     final BotConfig botConfig;
     final BotRepository botRepository;
     final CommandFactory commandFactory;
-    final NoticeService noticeService;
+    final NoticeServiceImpl noticeService;
 
     @Override
     public String getBotUsername() {
         return botConfig.getBotName();
     }
 
-    public Helper31Bot(BotConfig botConfig, BotRepository botRepository, CommandFactory commandFactory, NoticeService noticeService) {
+    public Helper31Bot(BotConfig botConfig, BotRepository botRepository, CommandFactory commandFactory, NoticeServiceImpl noticeService) {
         super(botConfig.getToken());
         this.botConfig = botConfig;
         this.botRepository = botRepository;
@@ -53,12 +53,12 @@ public final class Helper31Bot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         try {
             botRepository.saveRequest(update.getMessage());
-            execute(noticeService.createNotification(update));
+            execute(noticeService.createActionNotification(update));
             execute(commandFactory.getCommand(update).execute(update));
         } catch (Exception e) {
             log.error("Error while processing request", e);
             try {
-                execute(noticeService.createNotification(e.getMessage(), e.getStackTrace()));
+                execute(noticeService.createActionNotification(e.getMessage(), e.getStackTrace()));
             } catch (Exception s) {
                 log.error("Error while sending message about error", s);
             }

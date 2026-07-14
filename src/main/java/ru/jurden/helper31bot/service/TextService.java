@@ -9,4 +9,5 @@ public interface TextService {
     String getUuidStatusText(UuidSettings settings);
     String getPasswordStatusText(PasswordSettings settings);
     String getActionNotificationText(Message message);
+    String getErrorNotificationText(String error, StackTraceElement[] stackTrace);
 }

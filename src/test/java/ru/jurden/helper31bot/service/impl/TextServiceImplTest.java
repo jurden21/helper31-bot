@@ -12,6 +12,8 @@ import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.entity.UuidSettings;
 import ru.jurden.helper31bot.service.TextService;
 
+import java.util.Arrays;
+
 @ExtendWith(SpringExtension.class)
 class TextServiceImplTest {
 
