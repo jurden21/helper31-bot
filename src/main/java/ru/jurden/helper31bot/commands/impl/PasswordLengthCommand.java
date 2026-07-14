@@ -27,6 +27,11 @@ public class PasswordLengthCommand extends BaseCommand implements Command {
         return CommandType.PASSWORD_LENGTH;
     }
 
+    @Override
+    public CommandState getCommandState() {
+        return CommandState.READY;
+    }
+
     private int parseInt(String value) {
         try {
             return Integer.parseInt(value);

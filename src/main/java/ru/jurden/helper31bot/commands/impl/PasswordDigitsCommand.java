@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.commands.Command;
 import ru.jurden.helper31bot.entity.PasswordSettings;
+import ru.jurden.helper31bot.enums.CommandState;
 import ru.jurden.helper31bot.enums.CommandType;
 import ru.jurden.helper31bot.service.PasswordService;
 import ru.jurden.helper31bot.service.TextService;
@@ -24,6 +25,11 @@ public class PasswordDigitsCommand extends BaseCommand implements Command {
     @Override
     public CommandType getCommandType() {
         return CommandType.PASSWORD_DIGITS;
+    }
+
+    @Override
+    public CommandState getCommandState() {
+        return CommandState.READY;
     }
 
     @Override

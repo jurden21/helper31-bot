@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.commands.Command;
 import ru.jurden.helper31bot.entity.UuidSettings;
+import ru.jurden.helper31bot.enums.CommandState;
 import ru.jurden.helper31bot.enums.CommandType;
 import ru.jurden.helper31bot.service.TextService;
 import ru.jurden.helper31bot.service.UuidService;
@@ -24,6 +25,11 @@ public class UuidBracesCommand extends BaseCommand implements Command {
     @Override
     public CommandType getCommandType() {
         return CommandType.UUID_BRACES;
+    }
+
+    @Override
+    public CommandState getCommandState() {
+        return CommandState.READY;
     }
 
     @Override

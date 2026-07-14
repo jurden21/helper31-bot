@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.commands.Command;
+import ru.jurden.helper31bot.enums.CommandState;
 import ru.jurden.helper31bot.enums.CommandType;
 import ru.jurden.helper31bot.service.CharService;
 import ru.jurden.helper31bot.service.TextService;
@@ -22,6 +23,11 @@ public class HelpCommand extends BaseCommand implements Command {
     @Override
     public CommandType getCommandType() {
         return CommandType.HELP;
+    }
+
+    @Override
+    public CommandState getCommandState() {
+        return CommandState.READY;
     }
 
     @Override

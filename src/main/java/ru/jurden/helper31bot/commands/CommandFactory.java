@@ -5,9 +5,13 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.commands.impl.*;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class CommandFactory {
+
+    private final List<Command> commands;
 
     private final HelpCommand helpCommand;
     private final UuidCommand uuidCommand;
