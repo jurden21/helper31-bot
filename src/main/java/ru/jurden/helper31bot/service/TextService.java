@@ -11,4 +11,5 @@ public interface TextService {
     String getActionNotificationText(Message message);
     String getErrorNotificationText(String error, StackTraceElement[] stackTrace);
     String getUuidText(String uuid);
+    String getPasswordText(String password);
 }

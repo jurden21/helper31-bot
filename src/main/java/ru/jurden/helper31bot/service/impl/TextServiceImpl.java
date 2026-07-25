@@ -110,4 +110,9 @@ public class TextServiceImpl implements TextService {
     public String getUuidText(String uuid) {
         return String.format("`%s`", uuid);
     }
+
+    @Override
+    public String getPasswordText(String password) {
+        return String.format("<code>%s</code>", password);
+    }
 }
