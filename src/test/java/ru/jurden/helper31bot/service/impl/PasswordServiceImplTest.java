@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.repository.BotRepository;
+import ru.jurden.helper31bot.service.CharService;
 import ru.jurden.helper31bot.service.PasswordService;
 
 import java.util.stream.Stream;
@@ -22,12 +23,14 @@ class PasswordServiceImplTest {
 
     @Mock
     BotRepository botRepository;
+    @Mock
+    CharService charService;
 
     PasswordService passwordService;
 
     @BeforeEach
     void setUp() {
-        passwordService = new PasswordServiceImpl(botRepository);
+        passwordService = new PasswordServiceImpl(botRepository, charService);
     }
 
     @Nested

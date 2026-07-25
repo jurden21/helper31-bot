@@ -9,4 +9,5 @@ public interface PasswordService {
     PasswordSettings toggleUseDigits(Long chatId);
     PasswordSettings toggleUseSpecials(Long chatId);
     PasswordSettings setLength(Long chatId, int length);
+    String generatePassword(Long chatId);
 }

@@ -3,9 +3,16 @@ package ru.jurden.helper31bot.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import ru.jurden.helper31bot.entity.PasswordSettings;
 import ru.jurden.helper31bot.repository.BotRepository;
+import ru.jurden.helper31bot.service.CharService;
 import ru.jurden.helper31bot.service.PasswordService;
+
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -16,6 +23,7 @@ public class PasswordServiceImpl implements PasswordService {
     public static final int MAX_LENGTH = 256;
 
     private final BotRepository botRepository;
+    private final CharService charService;
 
     @Override
     public PasswordSettings getSettings(Long chatId) {
@@ -76,5 +84,26 @@ public class PasswordServiceImpl implements PasswordService {
 
         log.info("setLength for chatId={} to {}", chatId, passwordSettings);
         return passwordSettings;
+    }
+
+    @Override
+    public String generatePassword(Long chatId) {
+        PasswordSettings settings = botRepository.getPasswordSettings(chatId);
+        List<Character> chars = charService.getChars(settings);
+        Random random = new Random();
+
+        if (CollectionUtils.isEmpty(chars)) {
+            return "Please turn on any category of chars";
+        }
+
+        return Stream
+                .iterate(1, n -> n + 1)
+                .limit(settings.getLength())
+                .map(n -> chars.get(random.nextInt(chars.size())).toString())
+                .collect(Collectors.joining())
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;");
     }
 }
