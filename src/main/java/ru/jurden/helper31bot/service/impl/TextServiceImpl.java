@@ -105,4 +105,9 @@ public class TextServiceImpl implements TextService {
     public String getErrorNotificationText(String error, StackTraceElement[] stackTrace) {
         return ERROR_NOTIFICATION_TEXT.formatted(error, Arrays.toString(stackTrace));
     }
+
+    @Override
+    public String getUuidText(String uuid) {
+        return String.format("`%s`", uuid);
+    }
 }
