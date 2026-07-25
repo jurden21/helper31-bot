@@ -6,28 +6,20 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.commands.Command;
-import ru.jurden.helper31bot.enums.CommandState;
 import ru.jurden.helper31bot.enums.CommandType;
-import ru.jurden.helper31bot.service.CharService;
 import ru.jurden.helper31bot.service.TextService;
 
 @Slf4j
 @Component
 @AllArgsConstructor
-public class HelpCommand extends BaseCommand implements Command {
+public class HelpCommand implements Command {
 
     private final TextService textService;
 
     @Override
     public CommandType getCommandType() {
         return CommandType.HELP;
-    }
-
-    @Override
-    public CommandState getCommandState() {
-        return CommandState.READY;
     }
 
     @Override
@@ -38,10 +30,8 @@ public class HelpCommand extends BaseCommand implements Command {
         message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
 
-        String help = textService.getHelpText();
-        message.setText(help);
+        message.setText(textService.getHelpText());
 
         return message;
     }
-
 }

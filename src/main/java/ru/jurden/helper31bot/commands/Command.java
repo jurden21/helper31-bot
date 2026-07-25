@@ -1,9 +1,10 @@
 package ru.jurden.helper31bot.commands;
 
-import ru.jurden.helper31bot.enums.CommandState;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.jurden.helper31bot.enums.CommandType;
 
 public interface Command {
     CommandType getCommandType();
-    CommandState getCommandState();
+    SendMessage execute(Update update);
 }

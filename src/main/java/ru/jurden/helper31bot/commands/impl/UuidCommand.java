@@ -6,27 +6,22 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.commands.Command;
-import ru.jurden.helper31bot.enums.CommandState;
 import ru.jurden.helper31bot.enums.CommandType;
+import ru.jurden.helper31bot.service.TextService;
 import ru.jurden.helper31bot.service.UuidService;
 
 @Slf4j
 @Component
 @AllArgsConstructor
-public class UuidCommand extends BaseCommand implements Command {
+public class UuidCommand implements Command {
 
     private final UuidService uuidService;
+    private final TextService textService;
 
     @Override
     public CommandType getCommandType() {
         return CommandType.UUID;
-    }
-
-    @Override
-    public CommandState getCommandState() {
-        return CommandState.READY;
     }
 
     @Override
@@ -38,7 +33,7 @@ public class UuidCommand extends BaseCommand implements Command {
         message.setChatId(update.getMessage().getChatId());
 
         String uuid = uuidService.generateUuid(chatId);
-        message.setText(String.format("`%s`", uuid));
+        message.setText(textService.getUuidText(uuid));
 
         return message;
     }

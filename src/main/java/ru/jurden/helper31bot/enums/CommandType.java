@@ -15,6 +15,7 @@ public enum CommandType {
     PASSWORD("/password"),
     PASSWORD_STATUS("/password_status"),
     PASSWORD_LENGTH("/password_length"),
+    PASSWORD_LENGTH_VALUE(""),
     PASSWORD_UPPERCASE("/password_uppercase"),
     PASSWORD_LOWERCASE("/password_lowercase"),
     PASSWORD_DIGITS("/password_digits"),

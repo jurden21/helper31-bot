@@ -3,60 +3,25 @@ package ru.jurden.helper31bot.commands.impl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.commands.Command;
-import ru.jurden.helper31bot.entity.PasswordSettings;
-import ru.jurden.helper31bot.enums.CommandState;
 import ru.jurden.helper31bot.enums.CommandType;
-import ru.jurden.helper31bot.service.CharService;
 import ru.jurden.helper31bot.service.PasswordService;
-
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import ru.jurden.helper31bot.service.TextService;
 
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PasswordCommand extends BaseCommand implements Command {
+public class PasswordCommand implements Command {
 
-    private final CharService charService;
     private final PasswordService passwordService;
+    private final TextService textService;
 
     @Override
     public CommandType getCommandType() {
         return CommandType.PASSWORD;
-    }
-
-    @Override
-    public CommandState getCommandState() {
-        return CommandState.READY;
-    }
-
-    public String generatePassword(long chatId) {
-        Random random = new Random();
-
-        PasswordSettings settings = passwordService.getSettings(chatId);
-        List<Character> charList = charService.getChars(settings);
-
-        if (CollectionUtils.isEmpty(charList)) {
-            return "Please turn on any category of chars";
-        }
-
-        return Stream
-                .iterate(1, n -> n + 1)
-                .limit(settings.getLength())
-                .map(n -> charList.get(random.nextInt(charList.size())).toString())
-                .collect(Collectors.joining())
-                .replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;");
     }
 
     @Override
@@ -67,7 +32,8 @@ public class PasswordCommand extends BaseCommand implements Command {
         message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
 
-        String text = String.format("<code>%s</code>", generatePassword(chatId));
+        String password = passwordService.generatePassword(chatId);
+        String text = textService.getPasswordText(password);
         message.setText(text);
 
         return message;

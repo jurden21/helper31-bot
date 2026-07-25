@@ -6,10 +6,8 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.jurden.helper31bot.commands.BaseCommand;
 import ru.jurden.helper31bot.commands.Command;
 import ru.jurden.helper31bot.entity.PasswordSettings;
-import ru.jurden.helper31bot.enums.CommandState;
 import ru.jurden.helper31bot.enums.CommandType;
 import ru.jurden.helper31bot.service.PasswordService;
 import ru.jurden.helper31bot.service.TextService;
@@ -17,7 +15,7 @@ import ru.jurden.helper31bot.service.TextService;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PasswordSpecialCommand extends BaseCommand implements Command {
+public class PasswordSpecialCommand implements Command {
 
     private final PasswordService passwordService;
     private final TextService textService;
@@ -28,11 +26,6 @@ public class PasswordSpecialCommand extends BaseCommand implements Command {
     }
 
     @Override
-    public CommandState getCommandState() {
-        return CommandState.READY;
-    }
-
-    @Override
     public SendMessage execute(Update update) {
         long chatId = update.getMessage().getChatId();
 
@@ -40,8 +33,8 @@ public class PasswordSpecialCommand extends BaseCommand implements Command {
         message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
 
-        PasswordSettings settings = passwordService.toggleUseSpecials(chatId);
-        message.setText(textService.getPasswordStatusText(settings));
+        PasswordSettings passwordSettings = passwordService.toggleUseSpecials(chatId);
+        message.setText(textService.getPasswordStatusText(passwordSettings));
 
         return message;
     }
